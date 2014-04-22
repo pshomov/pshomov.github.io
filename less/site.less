@@ -1,0 +1,37 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+@aboutme_width: 400px; 
+@links_width: 100px;
+@me_width: 240px;
+
+body {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+}
+.aboutme {
+    width: @aboutme_width;
+    position: absolute;
+    left:0;
+    top: 0;
+    .picture-of-me {
+        width: @me_width;
+        height: @me_width;
+        border-radius: 50%;
+        background: url(../imgs/Petar.png) no-repeat;
+    }
+}
+
+.content {
+    margin-left: @aboutme_width;
+    margin-right: @links_width;
+}
+.links {
+    width: @links_width;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

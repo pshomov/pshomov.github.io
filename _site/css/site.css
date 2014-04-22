@@ -1,0 +1,33 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+}
+.aboutme {
+  width: 400px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.aboutme .picture-of-me {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: url(../imgs/Petar.png) no-repeat;
+}
+.content {
+  margin-left: 400px;
+  margin-right: 100px;
+}
+.links {
+  width: 100px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
