@@ -12,6 +12,7 @@ var Metalsmith = require('metalsmith'),
     drafts = require('metalsmith-drafts'),
     markdown = require('metalsmith-markdown'),
     templates = require('metalsmith-templates'),
+    collections = require('metalsmith-collections'),
     permalinks = require('metalsmith-permalinks');
 
 
@@ -19,7 +20,7 @@ var lessFile = 'less/site.less';
 gulp.task('styles', ['clean'], function() {
     return gulp.src(lessFile)
         .pipe(less())
-        .on('error', function(err){
+        .on('error', function(err) {
             console.log(err);
             // if (!noFail) {process.exit(12);}
         })
@@ -29,9 +30,9 @@ gulp.task('styles', ['clean'], function() {
 
 
 gulp.task('clean', function(cb) {
-    gulp.src('_site/*', {
+    gulp.src(['_site/*', 'build/*'], {
         read: false
-    }).pipe(clean()).on('end',cb).on('error', cb);
+    }).pipe(clean()).on('end', cb).on('error', cb);
 });
 
 gulp.task('gen', ['clean'], function(cb) {
@@ -40,20 +41,30 @@ gulp.task('gen', ['clean'], function(cb) {
         .source('_posts')
         .destination('build')
         .use(drafts())
+        .use(collections({
+            articles: {
+                pattern: '*.md',
+                sortBy: 'date',
+                reverse: true
+            }
+        }))
         .use(markdown())
-        .use(permalinks('posts/:title'))
+        .use(permalinks(':title'))
         .use(templates({
             engine: 'swig',
-            directory: '_layouts'
+            directory: '_layouts',
+            cache: false
         }))
-        .build(cb);
+        .build(function (err) {
+            cb();
+        });
 });
 
-gulp.task('repackage', ['gen'], function () {
+gulp.task('repackage', ['gen'], function() {
     gulp.src('build/**/*')
-    .pipe(gulp.dest('_site'));
+        .pipe(gulp.dest('_site'));
     gulp.src('public/**/*')
-    .pipe(gulp.dest('_site'));
+        .pipe(gulp.dest('_site'));
 });
 
 gulp.task('content', ['repackage', 'styles']);

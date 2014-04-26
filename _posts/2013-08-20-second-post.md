@@ -1,6 +1,6 @@
 ---
-title: First Post
-date: 2012-08-20
+title: Second post
+date: 2013-08-20
 template: post.html
 ---
 

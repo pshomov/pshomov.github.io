@@ -1,0 +1,9 @@
+{% extends "./base.html" %}
+{% block body %}
+{% for article in articles %}
+<p>{{ article.title }}</p>
+<hr>
+<p>{{ article.contents | safe }}</p>
+<br>
+{% endfor %}
+{% endblock %}
