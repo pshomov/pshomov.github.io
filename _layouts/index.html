@@ -1,9 +1,9 @@
-{% extends "./base.html" %}
+{% extends 'base.html' %}
 {% block body %}
 {% for article in articles %}
-<p>{{ article.title }}</p>
-<hr>
-<p>{{ article.contents | safe }}</p>
-<br>
+<article>
+    <h2>{{article.title || '>>needs title <<'}}</h2>
+    <p>{{ article.contentz | safe }}</p>
+</article>
 {% endfor %}
 {% endblock %}
