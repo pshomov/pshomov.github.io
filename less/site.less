@@ -3,8 +3,8 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-@aboutme_width: 400px; 
-@links_width: 100px;
+@aboutme_width: 200px; 
+@links_width: 0px;
 @me_width: 240px;
 
 html, body {
@@ -12,12 +12,18 @@ html, body {
     overflow: hidden;
 }
 
-body {
-    position: relative;
+@media all and (min-width: 960px) {
+    #container {
+        width: 960px;
+        position: relative;        
+        margin: 0 auto;
+        height: 100%;
+    }
 }
 
 .aboutme {
     width: @aboutme_width;
+    display: inline;
     position: absolute;
     left:0;
     top: 0;
@@ -30,12 +36,16 @@ body {
 }
 
 .content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     margin-left: @aboutme_width;
     margin-right: @links_width;
+    overflow: scroll;
 }
+
 .links {
     width: @links_width;
-    position: absolute;
     right: 0;
     top: 0;
 }
