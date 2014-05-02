@@ -1,6 +1,6 @@
 ---
 title: A design exercise of sorts 
-date: 2013-08-20
+date: 2014-05-07
 draft: true
 template: post.html
 ---
