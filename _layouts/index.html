@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block body %}
 {% for article in articles %}
-<article>
-    <h2>{{article.title || '>>needs title <<'}}</h2>
+<article class="index">
+    <h2><a href="{{article.path}}" tabindex>{{article.title || '>>needs title <<'}}</a></h2>
+    <h5>{{article.date | date('Y-m-d')}}</h5>
     <p>{{ article.contentz | safe }}</p>
 </article>
 {% endfor %}
