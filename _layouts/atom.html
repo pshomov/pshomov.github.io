@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+  <title>My Blog</title>
+  <link href="http://pshomov.github.io/"/>
+  <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
+  <id>http://pshomov.github.io/</id>
+  <author>
+    <name>Petar Shomov</name>
+    <email>pshomov@gmail.com</email>
+  </author>
+
+  {% for post in articles %}
+  <entry>
+    <link type="text/html" rel="alternate" href="http://pshomov.github.io/{{ post.path }}"/>
+    <title>{{ post.title }}</title>
+    <published>{{ post.date | date('Y-m-d') }}</published>
+    <updated>{{ post.date | date('Y-m-d') }}</updated>
+    <author>
+      <name>Petar Shomov</name>
+      <uri>http://pshomov.github.io/</uri>
+    </author>
+    <content type="html">{{ post.contentz | safe }}</content>
+  </entry>
+  {% endfor %}
+ 
+</feed>
