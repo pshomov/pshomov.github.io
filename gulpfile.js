@@ -13,6 +13,7 @@ var Metalsmith = require('metalsmith'),
     drafts = require('metalsmith-drafts'),
     markdown = require('metalsmith-markdown'),
     templates = require('metalsmith-templates'),
+    builddate = require('metalsmith-build-date'),
     collections = require('metalsmith-collections'),
     permalinks = require('metalsmith-permalinks');
 
@@ -52,6 +53,7 @@ gulp.task('gen', ['clean'], function(cb) {
         .source('_posts')
         .destination('build')
         .use(drafts())
+        .use(builddate())
         .use(collections({
             articles: {
                 pattern: '*.md',
@@ -67,9 +69,7 @@ gulp.task('gen', ['clean'], function(cb) {
             directory: '_layouts',
             cache: false
         }))
-        .build(function(err) {
-            cb();
-        });
+        .build(cb);
 });
 
 gulp.task('repackage', ['gen'], function() {
