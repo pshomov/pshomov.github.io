@@ -5,6 +5,8 @@ var gulp = require('gulp'),
     autoprefix = require('gulp-autoprefixer'),
     refresh = require('gulp-livereload'),
     connect = require('gulp-connect'),
+    rename = require("gulp-rename"),
+    imageResize = require('gulp-image-resize'),
     clean = require('gulp-clean');
 var lr = require('tiny-lr'),
     server = lr();
@@ -40,7 +42,7 @@ gulp.task('clean', function(cb) {
 
 
 gulp.task('gen', ['clean'], function(cb) {
-    var duplicate = function (files, metalsmith, done) {
+    var duplicate = function(files, metalsmith, done) {
 
         for (var file in files) {
             files[file].contentz = files[file].contents;
@@ -72,10 +74,28 @@ gulp.task('gen', ['clean'], function(cb) {
         .build(cb);
 });
 
-gulp.task('repackage', ['gen'], function() {
-    gulp.src('build/**/*')
+gulp.task('process_images', function(){
+    gulp.src('public/imgs/me-original.png')
+        .pipe(imageResize({
+            width: 200,
+            height: 200,
+            crop: false,
+            upscale: false
+        }))
+        .pipe(rename('imgs/me.png'))        
         .pipe(gulp.dest('_site'));
-    gulp.src('public/**/*')
+    gulp.src('public/imgs/me-original.png')
+        .pipe(imageResize({
+            width: 400,
+            height: 400,
+            crop: false,
+            upscale: false
+        }))
+        .pipe(rename('imgs/me@2x.png'))
+        .pipe(gulp.dest('_site'));
+});
+gulp.task('repackage', ['gen', 'process_images'], function() {
+    gulp.src('build/**/*')
         .pipe(gulp.dest('_site'));
     gulp.src('bower_components/**/*')
         .pipe(gulp.dest('_site'));

@@ -13,6 +13,19 @@
 
   
   <entry>
+    <link type="text/html" rel="alternate" href="http://pshomov.github.io/a-design-exercise-of-sorts"/>
+    <title>A design exercise of sorts</title>
+    <published>2014-05-07</published>
+    <updated>2014-05-07</updated>
+    <author>
+      <name>Petar Shomov</name>
+      <uri>http://pshomov.github.io/</uri>
+    </author>
+    <content type="html"><p>So I am all fired up about not sucking so much designing web and mobile apps and I though I really need some exercise. I recently read this great book - <a href="http://www.amazon.com/Design-Hackers-Reverse-Engineering-Beauty/dp/1119998956">Design for Hackers: Reverse Engineering Beauty</a> and I thought - why not start a blog in the rawest form possible and little by little try to make it better. Looking forward to iteration one ;)</p>
+</content>
+  </entry>
+  
+  <entry>
     <link type="text/html" rel="alternate" href="http://pshomov.github.io/introduction"/>
     <title>Introduction</title>
     <published>2014-05-02</published>
