@@ -4,7 +4,7 @@
   <title>My Blog</title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>2014-05-06</updated>  
+  <updated>2014-05-08</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
@@ -13,8 +13,8 @@
 
   
   <entry>
-    <link type="text/html" rel="alternate" href="http://pshomov.github.io/a-design-exercise-of-sorts"/>
-    <title>A design exercise of sorts</title>
+    <link type="text/html" rel="alternate" href="http://pshomov.github.io/a-design-exercise"/>
+    <title>A design exercise</title>
     <published>2014-05-07</published>
     <updated>2014-05-07</updated>
     <author>
