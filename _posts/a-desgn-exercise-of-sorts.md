@@ -1,5 +1,5 @@
 ---
-title: A design exercise of sorts 
+title: A design exercise
 date: 2014-05-07
 draft: false
 template: post.html
