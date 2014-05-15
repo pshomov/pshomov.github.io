@@ -49,11 +49,28 @@ gulp.task('gen', ['clean'], function(cb) {
         }
 
         done();
-    }
+    };
+    var testContent = function(files, metalsmith, done) {
+
+        for (var i = 0; i < 10; i++) {
+            var content = {};
+            content.title = 'Lorem ipsum '+i.toString();
+            content.date = new Date();
+            content.draft = false;
+            content.collection = 'articles';
+            content.contents = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, harum, necessitatibus, similique aperiam consectetur officiis labore tenetur iste odio cumque sed blanditiis quia eos nostrum adipisci facere pariatur dolorem natus.';
+            content.contentz = content.contents;
+            files['posts/lorem'+i.toString()+'.md'] = content;
+        }
+
+        done();
+    };
+
     console.log("Regenerating posts");
     new Metalsmith(__dirname)
         .source('_posts')
         .destination('build')
+        .use(testContent)
         .use(drafts())
         .use(builddate())
         .use(collections({
