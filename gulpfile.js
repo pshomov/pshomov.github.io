@@ -19,7 +19,7 @@ var Metalsmith = require('metalsmith'),
     collections = require('metalsmith-collections'),
     permalinks = require('metalsmith-permalinks');
 
-
+var dev = process.env.DEV;
 var lessFile = 'less/site.less';
 gulp.task('styles', ['clean'], function() {
     return gulp.src(lessFile)
@@ -42,6 +42,9 @@ gulp.task('clean', function(cb) {
 
 
 gulp.task('gen', ['clean'], function(cb) {
+    var noop = function(files, metalsmith, done) {
+        done();
+    };
     var duplicate = function(files, metalsmith, done) {
 
         for (var file in files) {
@@ -70,7 +73,7 @@ gulp.task('gen', ['clean'], function(cb) {
     new Metalsmith(__dirname)
         .source('_posts')
         .destination('build')
-        .use(testContent)
+        .use(dev ? testContent : noop)
         .use(drafts())
         .use(builddate())
         .use(collections({
