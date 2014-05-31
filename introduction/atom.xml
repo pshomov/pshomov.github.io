@@ -4,13 +4,28 @@
   <title>My Blog</title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>2014-05-20</updated>  
+  <updated>2014-05-31</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
     <email>pshomov@gmail.com</email>
   </author>
 
+  
+  <entry>
+    <link type="text/html" rel="alternate" href="http://pshomov.github.io/elements-visible-invisible-and-missing-part-2"/>
+    <title>Elements - visible, invisible and missing (part 2)</title>
+    <published>2014-05-31</published>
+    <updated>2014-05-31</updated>
+    <author>
+      <name>Petar Shomov</name>
+      <uri>http://pshomov.github.io/</uri>
+    </author>
+    <content type="html"><p>In my last post I was going over the elements of a blog that I use in my little experiment. Now, for the rest ...</p>
+<p>What I have <em>not added</em> is links to similar posts, my twitter stream, blog rolls, archive, like button, retweet button, G+ button and all kinds of other buttons that are mostly create noise, do not look esthetically pleasing and seldomly used. Other omissions include footer, site map, copyright notices and all kinds of what I consider cruft.</p>
+<p>Finally for the <em>invisible</em> - I have what seems to be an Atom feed for the web site and that one is machine discoverable but I decided to not make an official link to it on the site. Basically if you go to a site like <a href="http://feedly.com">Feedly</a> and paste the url for the blog, the feed link will be descovered and used. And that I think is enough visibility for that element. I think I will also try to surface that feed in the Google result if that is possible.</p>
+</content>
+  </entry>
   
   <entry>
     <link type="text/html" rel="alternate" href="http://pshomov.github.io/elements-visible-invisible-and-missing-part-1"/>
