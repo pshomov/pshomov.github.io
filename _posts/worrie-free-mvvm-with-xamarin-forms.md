@@ -1,10 +1,11 @@
 ---
 title: Worry-free MVVM with Xamarin Forms
-date: 2015-05-21
+date: 2015-05-25
 draft: 
 template: post.html
 ---
 **TL;DR** - Super-clean MVVM example with automatic Command status updates [here](https://github.com/pshomov/mvvmeasy)
+***
 
 Xamarin Forms is great for writing decent looking applications on all three major mobile platforms - iOS, Android and Windows Mobile. The Xaml support and databindings are great help to keep things clean and simple. 
 
@@ -22,7 +23,7 @@ And here is how the new model looks like:
 
 <script src="https://gist.github.com/pshomov/eb3f85471e632bbcb9f6.js"></script>
  
-Now Fody.PropertyChanged is great, it helps us get rid of those super-boring, error-prone property setters but unfortunately does nothing about upadting the Login command state. In fact this version of the model does not work correctly since the Login commands never gets enabled. So to fix this problem we have to make the Login command state be more MVVM-y. To do that let's use [MVVMCommand](https://github.com/pshomov/mvvmeasy/blob/master/Infrastructure/MVVMCommand.cs) which is exactly like a normal Xamarin Forms Command except the second parameter has to be a lambda that returns the value of a property. Let's see how the fixed model looks:
+Now Fody.PropertyChanged is great, it helps us get rid of those super-boring, error-prone property setters but unfortunately does nothing about updating the Login command state. In fact this version of the model does not work correctly since the Login command never gets enabled. One way to fix this problem is by making the Login command state be more MVVM-y. To do that let's use [MVVMCommand](https://github.com/pshomov/mvvmeasy/blob/master/Infrastructure/MVVMCommand.cs) which is exactly like a normal Xamarin Forms Command except the second parameter has to be a lambda that returns the value of a property. Let's see how the fixed model looks:
 
 <script src="https://gist.github.com/pshomov/4b158ca0b0801809b0d6.js"></script>
 
@@ -30,6 +31,8 @@ Notice how in line 28 the state of the command becomes extracted to a property -
 
 <script src="https://gist.github.com/pshomov/4e2b51ef94ca3c6cc508.js"></script>
 
-So now testing this model becomes really a rather simple exercise of changing properties and asserting on the status of other properties and no need to worry about bookkeeping regarding who update who.
+So now testing this model becomes really a rather simple and elegant exercise of changing properties and asserting on the value of other properties and no need to worry about bookkeeping regarding who update who.
 
 Hope this makes sense, the source for a complete example is on [GitHub](https://github.com/pshomov/mvvmeasy)
+
+**BTW**: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please file an issue on the code and let's have the conversion over there ;) 
