@@ -7,14 +7,16 @@
 html,
 body {
   height: 100%;
+  line-height: 1.6;
   overflow: hidden;
+  font-size: 16px;
 }
 @media all and (min-width: 960px) {
   #container {
-    padding-top: 10px;
+    padding-top: 20px;
     width: 960px;
     position: relative;
-    margin: 0 auto;
+    margin: 20px auto;
     height: 100%;
   }
 }
@@ -41,13 +43,25 @@ body {
 .content {
   position: absolute;
   top: 0;
-  bottom: 0;
-  margin-left: 205px;
+  bottom: 20px;
+  margin-left: 220px;
   margin-right: 0px;
   overflow: scroll;
 }
+.content p {
+  font-size: 18px;
+}
+.content p:first-of-type {
+  margin-top: 60px;
+}
+.content hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
 .content .index {
-  margin-left: 5px;
+  margin-left: 20px;
 }
 .links {
   width: 0px;
