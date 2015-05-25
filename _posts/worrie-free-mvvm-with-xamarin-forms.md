@@ -27,7 +27,7 @@ Now Fody.PropertyChanged is great, it helps us get rid of those super-boring, er
 
 <script src="https://gist.github.com/pshomov/4b158ca0b0801809b0d6.js"></script>
 
-Notice how in line 28 the state of the command becomes extracted to a property - IsLoginEnabled. The reason that is good is because it plays on the strength of Fody.PropertyChanged. Meaning that Fody.PropertyChanged sends out ProprtyChanged notificaions about IsLoginEnabled whenever one of the properties it's value is based on changes. Now all MVVMCommand needs to do is listen for those notifications and do the updating of the enabled/disabled command state. It's actually pretty simple:
+Notice how in line 28 the state of the command becomes extracted to a property - IsLoginEnabled. The reason that is good is because it plays on the strength of Fody.PropertyChanged. Meaning that Fody.PropertyChanged sends out ProprtyChanged notifications about IsLoginEnabled whenever one of the properties it's value is based on changes. Now all MVVMCommand needs to do is listen for those notifications and do the updating of the enabled/disabled command state. It's actually pretty simple:
 
 <script src="https://gist.github.com/pshomov/4e2b51ef94ca3c6cc508.js"></script>
 
@@ -35,4 +35,4 @@ So now testing this model becomes really a rather simple and elegant exercise of
 
 Hope this makes sense, the source for a complete example is on [GitHub](https://github.com/pshomov/mvvmeasy)
 
-**BTW**: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please file an issue on the code and let's have the conversion over there ;) 
+**BTW**: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please [create an issue on the example](https://github.com/pshomov/mvvmeasy/issues) and let's have the conversation over there ;) 

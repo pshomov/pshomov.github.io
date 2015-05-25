@@ -95,24 +95,24 @@ gulp.task('gen', ['clean'], function(cb) {
 });
 
 gulp.task('process_images', function(){
-    gulp.src('public/imgs/me-original.png')
-        .pipe(imageResize({
-            width: 200,
-            height: 200,
-            crop: false,
-            upscale: false
-        }))
-        .pipe(rename('imgs/me.png'))        
-        .pipe(gulp.dest('_site'));
-    gulp.src('public/imgs/me-original.png')
-        .pipe(imageResize({
-            width: 400,
-            height: 400,
-            crop: false,
-            upscale: false
-        }))
-        .pipe(rename('imgs/me@2x.png'))
-        .pipe(gulp.dest('_site'));
+//    gulp.src('public/imgs/me-original.png')
+//        .pipe(imageResize({
+//            width: 200,
+//            height: 200,
+//            crop: false,
+//            upscale: false
+//        }))
+//        .pipe(rename('imgs/me.png'))        
+//        .pipe(gulp.dest('_site'));
+//    gulp.src('public/imgs/me-original.png')
+//        .pipe(imageResize({
+//            width: 400,
+//            height: 400,
+//            crop: false,
+//            upscale: false
+//        }))
+//        .pipe(rename('imgs/me@2x.png'))
+//        .pipe(gulp.dest('_site'));
 });
 gulp.task('repackage', ['gen', 'process_images'], function() {
     gulp.src('build/**/*')
@@ -129,7 +129,7 @@ gulp.task('connect', function() {
     });
 });
 
-gulp.task('default', ['content'], function() {
+gulp.task('default', ['content', 'connect'], function() {
     server.listen(35649, function(err) {
         if (err) {
             return console.log(err);
