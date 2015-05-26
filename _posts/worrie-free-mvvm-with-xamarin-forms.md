@@ -23,7 +23,7 @@ And here is how the new model looks like:
 
 <script src="https://gist.github.com/pshomov/eb3f85471e632bbcb9f6.js"></script>
  
-I think Fody.PropertyChanged is great, it helps us get rid of those super-boring, error-prone property setters but unfortunately does nothing about updating the Login command state. In fact this version of the model does not work correctly since the Login command never gets enabled. One way to fix this problem is by making the Login command state be more MVVM-y. To do that let's use [MVVMCommand](https://github.com/pshomov/mvvmeasy/blob/master/Infrastructure/MVVMCommand.cs) which is exactly like a normal Xamarin Forms Command except the second parameter has to be a lambda that returns the value of a property. Let's see how the fixed model looks:
+I think Fody.PropertyChanged is great, it helps us get rid of those super-boring, error-prone property getters and setters but unfortunately does nothing about updating the Login command state. In fact this version of the model does not work correctly since the Login command never gets enabled. One way to fix this problem is by making the Login command state be more MVVM-y. To do that let's use [MVVMCommand](https://github.com/pshomov/mvvmeasy/blob/master/Infrastructure/MVVMCommand.cs) which is exactly like a normal Xamarin Forms Command except the second parameter has to be a lambda that returns the value of a property. Let's see how the fixed model looks:
 
 <script src="https://gist.github.com/pshomov/4b158ca0b0801809b0d6.js"></script>
 
