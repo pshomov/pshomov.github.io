@@ -68,3 +68,9 @@ body {
   right: 0;
   top: 0;
 }
+.hcenter {
+  text-align: center;
+}
+.badge {
+  margin: 10px;
+}
