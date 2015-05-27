@@ -72,7 +72,7 @@
 <ul>
 <li>Lot&#39;s of repetitive code in the property getters and setters</li>
 <li>Extra complexity in both the property setters and the command itself due to keeping the enabled/disabled state of the Login command in sync (lines 22, 30, 63 and 72)</li>
-<li>We need extra (and may I say not particularly pretty) testing of wether the property change notifications were sent and the update of the Login command status was triggered</li>
+<li>We need extra (and may I say not particularly pretty) testing of whether the property change notifications were sent and the update of the Login command status was triggered</li>
 </ul>
 <p>In order to clean things up let&#39;s use <a href="https://github.com/Fody/PropertyChanged#your-code">Fody.PropertyChanged</a> and get rid of Prism&#39;s BindableBase. If you have not looked at this MVVM specialized weaver, please take your time now to get introduced. I think you might like it.
 And here is how the new model looks like:</p>
