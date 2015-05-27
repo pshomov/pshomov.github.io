@@ -16,7 +16,7 @@ So I am working on a Xamarin Forms project where we were in the process of choos
 A couple of things to notice here:
 - Lot's of repetitive code in the property getters and setters
 - Extra complexity in both the property setters and the command itself due to keeping the enabled/disabled state of the Login command in sync (lines 22, 30, 63 and 72)
-- We need extra (and may I say not particularly pretty) testing of wether the property change notifications were sent and the update of the Login command status was triggered
+- We need extra (and may I say not particularly pretty) testing of whether the property change notifications were sent and the update of the Login command status was triggered
 
 In order to clean things up let's use [Fody.PropertyChanged](https://github.com/Fody/PropertyChanged#your-code) and get rid of Prism's BindableBase. If you have not looked at this MVVM specialized weaver, please take your time now to get introduced. I think you might like it.
 And here is how the new model looks like:
