@@ -85,6 +85,10 @@ body {
 .hcenter {
   text-align: center;
 }
+.block_center {
+  margin-left: auto;
+  margin-right: auto;
+}
 .badge {
   margin: 10px;
 }
