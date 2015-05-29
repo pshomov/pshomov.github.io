@@ -10,9 +10,7 @@
  @margin: @spacing;
  @desktop_breakpoint: 960px;
  html, body {
-    height: 100%;
     line-height: 1.6;
-//    overflow: hidden;
     font-size: 16px;
 }
 @media all and (min-width: @desktop_breakpoint) {
@@ -21,16 +19,25 @@
         width: @desktop_breakpoint;
         position: relative;
         margin: 0 auto;
-        height: 100%;
     }
 }
 .aboutme {
-    width: @aboutme_width;
-    display: inline;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
+    @media all and (min-width: @desktop_breakpoint) {        
+        width: @aboutme_width;
+        display: inline-block;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
+    background-color: #090909;
+    color: orange;
+    a:visited {
+        color: orangered;
+    }
+    a {
+        color: orange;
+    }
     .picture-of-me {
         width: @me_width;
         height: @me_width;
@@ -43,6 +50,11 @@
             background: url(../imgs/me@2x.png) no-repeat;
             background-size: @me_width @me_width;
         }
+    }
+    
+    h6 {
+        padding: @spacing/2 @spacing/2;
+        font-size: 16px;
     }
 }
 .content {
@@ -58,12 +70,13 @@
         border-top: 1px solid rgba(0, 0, 0, 0.1);
         border-bottom: 1px solid rgba(255, 255, 255, 0.3);        
     }
-    position: absolute;
-    top: 0;
-    bottom: @spacing;
-    margin-left: @aboutme_width + @margin;
-    margin-right: @links_width;
-//    overflow: scroll;
+    @media all and (min-width: @desktop_breakpoint) {            
+        position: absolute;
+        top: 0;
+        bottom: @spacing;
+        margin-left: @aboutme_width + @margin;
+        margin-right: @links_width;
+    }
     .index {
         margin-left: @spacing;
     }
@@ -79,4 +92,8 @@
 }
 .badge {
     margin: @spacing/2;
+}
+
+.my_name_is {
+    text-align: center;
 }

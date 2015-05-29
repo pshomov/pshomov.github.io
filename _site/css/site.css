@@ -6,7 +6,6 @@
 }
 html,
 body {
-  height: 100%;
   line-height: 1.6;
   font-size: 16px;
 }
@@ -16,16 +15,27 @@ body {
     width: 960px;
     position: relative;
     margin: 0 auto;
-    height: 100%;
   }
 }
 .aboutme {
-  width: 200px;
-  display: inline;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
+  background-color: #090909;
+  color: orange;
+}
+@media all and (min-width: 960px) {
+  .aboutme {
+    width: 200px;
+    display: inline-block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+.aboutme a:visited {
+  color: orangered;
+}
+.aboutme a {
+  color: orange;
 }
 .aboutme .picture-of-me {
   width: 200px;
@@ -39,12 +49,9 @@ body {
     background-size: 200px 200px;
   }
 }
-.content {
-  position: absolute;
-  top: 0;
-  bottom: 20px;
-  margin-left: 220px;
-  margin-right: 0px;
+.aboutme h6 {
+  padding: 10px 10px;
+  font-size: 16px;
 }
 .content p {
   font-size: 18px;
@@ -57,6 +64,15 @@ body {
   height: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+@media all and (min-width: 960px) {
+  .content {
+    position: absolute;
+    top: 0;
+    bottom: 20px;
+    margin-left: 220px;
+    margin-right: 0px;
+  }
 }
 .content .index {
   margin-left: 20px;
@@ -71,4 +87,7 @@ body {
 }
 .badge {
   margin: 10px;
+}
+.my_name_is {
+  text-align: center;
 }
