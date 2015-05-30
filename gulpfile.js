@@ -74,7 +74,7 @@ gulp.task('gen', ['clean'], function(cb) {
     new Metalsmith(__dirname)
         .metadata({
             site: {
-              title: 'My Blog',
+              title: 'Petar\'s blog',
               url: 'http://pshomov.github.io',
               author: 'Petar Shomov'
             }            
