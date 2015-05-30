@@ -4,7 +4,7 @@
   <title>My Blog</title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>{{ date | date('Y-m-d') }}</updated>  
+  <updated>{{ date | date('Y-m-dT10:00:00Z') }}</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
@@ -21,7 +21,7 @@
       <name>Petar Shomov</name>
       <uri>http://pshomov.github.io/</uri>
     </author>
-    <content type="html">{{ post.contentz | safe }}</content>
+    <content type="html"><![CDATA[ {{ post.contentz | safe }} ]]></content>
   </entry>
   {% endfor %}
  
