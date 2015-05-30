@@ -28,6 +28,7 @@
                 <!-- <link rel="stylesheet" href="styles/fonts.css">
  -->
                 <!-- endbuild -->
+                <script src="https://rawgit.com/natevw/fermata/master/fermata.js"></script>                
                 </head>
                 
                 <body>
@@ -61,6 +62,87 @@
   <time>2014-05-07</time>
   <p>So I am all fired up about not sucking so much designing web and mobile apps and I though I really need some exercise. I recently read this great book - <a href="http://www.amazon.com/Design-Hackers-Reverse-Engineering-Beauty/dp/1119998956">Design for Hackers: Reverse Engineering Beauty</a> and I thought - why not start a blog in the rawest form possible and little by little try to make it better. Looking forward to iteration one ;) </p>
 
+  
+  <script>
+    // parseUri 1.2.2
+    // (c) Steven Levithan <stevenlevithan.com>
+    // MIT License
+    
+    function parseUri (str) {
+    	var	o   = parseUri.options,
+    		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+    		uri = {},
+    		i   = 14;
+    
+    	while (i--) uri[o.key[i]] = m[i] || "";
+    
+    	uri[o.q.name] = {};
+    	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
+    		if ($1) uri[o.q.name][$1] = $2;
+    	});
+    
+    	return uri;
+    };
+    
+    parseUri.options = {
+    	strictMode: false,
+    	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+    	q:   {
+    		name:   "queryKey",
+    		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
+    	},
+    	parser: {
+    		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
+    		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+    	}
+    };
+    
+  </script>
+  <script>
+    var site = fermata.json('https://api.github.com');
+
+    var parsed = parseUri(window.location.href);
+    if (parsed.queryKey.code){
+      // getting back from github with code, need to get a token now
+      console.log('got code from the server')
+      fermata.raw('https://github.com')('login')('oauth')('access_token').post({
+        client_id : 'f6549e6114dc291e8e11',
+        client_secret : 'ecb68e11ccde5939e84f97c96d136a35630420c5',
+        code : parsed.queryKey.code,
+        redirect_uri : (window.location.origin + window.location.pathname) 
+      }, function(err, data, headers){
+        console.log('exchange back')
+        console.log('err', err);
+        console.log('data', data);
+        console.log('header', headers);
+        
+      })} 
+      else     if (parsed.queryKey.access_token){
+        console.log('got access_token, checking for user presence')
+        site('user').get({access_token : parsed.queryKey.access_token}, function (err, data, headers){
+          console.log('user info');
+          console.log('err', err);
+          console.log('data', data);
+          console.log('header', headers);
+        });    
+      }
+      else {
+            window.location.href="https://github.com/login/oauth/authorize?client_id=f6549e6114dc291e8e11&state=asdasdfasf&redirect_uri="+encodeURIComponent(window.location.origin + window.location.pathname);
+          }
+       
+    
+//    site('repos','pshomov', 'pshomov.github.io','issues','1', 'comments').get(function (err, data, headers){
+//      console.log('err', err);
+//      console.log('data', data);
+//      console.log('header', headers);
+//    });
+//    site('repos','pshomov', 'pshomov.github.io','issues','1', 'comments').post({body : 'api generated comment'},function (err, data, headers){
+//      console.log('Posting comment');
+//      console.log('err', err);
+//      console.log('data', data);
+//      console.log('header', headers);
+//    })
+  </script>
 </div>
                         <!-- <div class="links">links</div> --></div>
                     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
