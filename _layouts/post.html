@@ -68,7 +68,7 @@
         });    
       }
       else {
-            window.location.href="https://github.com/login/oauth/authorize?client_id=f6549e6114dc291e8e11&state=asdasdfasf&redirect_uri="+encodeURIComponent(window.location.origin + window.location.pathname);
+            window.location.href="https://github.com/login/oauth/authorize?client_id=f6549e6114dc291e8e11&state="+Date.now()+"&redirect_uri="+encodeURIComponent(window.location.origin + window.location.pathname);
           }
        
     

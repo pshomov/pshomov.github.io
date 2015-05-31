@@ -141,7 +141,7 @@ gulp.task('content', ['repackage', 'styles']);
 gulp.task('connect', function() {
     connect.server({
         root: '_site',
-        port: 8000
+        port: 80
     });
 });
 
