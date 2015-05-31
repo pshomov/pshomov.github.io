@@ -105,7 +105,7 @@
     if (parsed.queryKey.code){
       // getting back from github with code, need to get a token now
       console.log('got code from the server')
-      fermata.raw('https://github.com')('login')('oauth')('access_token').post({
+      fermata.json('https://github.com')('login')('oauth')('access_token').post({
         client_id : 'f6549e6114dc291e8e11',
         client_secret : 'ecb68e11ccde5939e84f97c96d136a35630420c5',
         code : parsed.queryKey.code,
