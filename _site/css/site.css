@@ -19,7 +19,7 @@ body {
 }
 .aboutme {
   background-color: #090909;
-  color: orange;
+  color: #ffa500;
 }
 @media all and (min-width: 960px) {
   .aboutme {
@@ -32,10 +32,10 @@ body {
   }
 }
 .aboutme a:visited {
-  color: orange;
+  color: #ffa500;
 }
 .aboutme a {
-  color: orange;
+  color: #ffa500;
 }
 .aboutme .picture-of-me {
   width: 200px;
@@ -95,15 +95,25 @@ body {
 .my_name_is {
   text-align: center;
 }
-.comments-title {
+.avatar {
+  max-width: 10%;
+}
+.comments-hat {
   margin-top: 40px;
   margin-bottom: 40px;
   padding-top: 20px;
   border-top: 1px solid lightgray;
   font-weight: 700;
 }
-.avatar {
-  max-width: 10%;
+.comments-title,
+.comments-post {
+  display: inline-block;
+  margin: 0;
+  width: 50%;
+  vertical-align: top;
+}
+.comments-post > button {
+  float: right;
 }
 .comments {
   padding-bottom: 20px;
@@ -127,4 +137,10 @@ body {
 }
 .comment__body {
   margin: 10px 0 0 10px;
+}
+button {
+  border-width: 0;
+  background-color: #090909;
+  color: #ffa500;
+  padding: 10px 20px;
 }

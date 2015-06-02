@@ -4,7 +4,9 @@
   <time>{{ date | date('Y-m-d') }}</time>
   {{ contents | safe }}
   {% if issueId %}
-  <div class="comments-title">Comments:</div>
+  <div class="comments-hat">
+    <div class="comments-title">Comments:</div><div class="comments-post"><button>Post your comment&nbsp;<i class="fa fa-github"></i></button></div>    
+  </div>
   <div id="comments" class="comments"></div>
   
   <script>

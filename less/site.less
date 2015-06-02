@@ -9,6 +9,8 @@
  @me_width: 200px;
  @margin: @spacing;
  @desktop_breakpoint: 960px;
+ @primary-color: #090909;
+ @secondary-color: orange;
  html, body {
     line-height: 1.6;
     font-size: 16px;
@@ -30,13 +32,13 @@
         top: 0;
         bottom: 0;
     }
-    background-color: #090909;
-    color: orange;
+    background-color: @primary-color;
+    color: @secondary-color;
     a:visited {
-        color: orange;
+        color: @secondary-color;
     }
     a {
-        color: orange;
+        color: @secondary-color;
     }
     .picture-of-me {
         width: @me_width;
@@ -103,15 +105,28 @@
 }
 
 .comments-title {
-    margin-top: 2*@spacing;
-    margin-bottom: 2*@spacing;
-    padding-top: @spacing;
-    border-top: 1px solid lightgray;
-    font-weight: 700;
 }
 
 .avatar {
     max-width: 10%;
+}
+
+.comments-hat {
+    margin-top: 2*@spacing;
+    margin-bottom: 2*@spacing;
+    padding-top: @spacing;
+    border-top: 1px solid lightgray;
+    font-weight: 700;    
+}
+.comments-title, .comments-post{
+    display: inline-block;
+    margin: 0;
+    width: 50%;
+    vertical-align: top;
+}
+
+.comments-post > button{
+    float: right;
 }
 
 .comments {
@@ -140,4 +155,11 @@
 .comment__body {
     margin: @spacing / 2 0 0 (@spacing / 2);
     
+}
+
+button {
+    border-width: 0;
+    background-color: @primary-color;
+    color: @secondary-color;
+    padding: @spacing/2 @spacing;
 }
