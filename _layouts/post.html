@@ -6,10 +6,12 @@
   {% if issueId %}
   <div class="comments-title">Comments:</div>
   <div id="comments" class="comments"></div>
-  <script type="text/javascript" src="http://datejs.googlecode.com/svn/trunk/build/date-en-US.js"></script>
   
   <script>
-function loadComments(data) {
+    function formatCommentTimestamp(timestamp) {
+      return timestamp.toLocaleString();
+    }
+    function loadComments(data) {
       var comments = "";
       for (var i=0; i<data.length; i++) {
         var cuser = data[i].user.login;
@@ -17,15 +19,14 @@ function loadComments(data) {
         var clink = "https://github.com/pshomov/pshomov.github.io/issues/{{ issueId }}#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
        var cbody = data[i].body;
        var cavatarlink = data[i].user.avatar_url;
-       var cdate = Date.parse(data[i].created_at).toString("yyyy-MM-dd HH:mm:ss");
- 
+       var cdate = formatCommentTimestamp(new Date(data[i].created_at));
+    
        comments += "<div class='comment'>"+'<img src="' + cavatarlink + '" class="avatar">'+"<div class='comment__info'>"+"<div class='comment__header'><a class='comment__user' href=\""+ cuserlink + "\">" + cuser + "</a>" + "<a class='comment__date' href=\"" + clink + "\">" + cdate + "</a></div><div class='comment__body'>" + cbody + "</div></div></div>";
      }
      document.getElementById("comments").innerHTML = comments;
-   }
+    }
     var site = fermata.json('https://api.github.com');
     
-       
     site('repos','pshomov', 'pshomov.github.io','issues','{{ issueId }}', 'comments').get(function (err, data, headers){
       if (err == null){
        loadComments(data); 
