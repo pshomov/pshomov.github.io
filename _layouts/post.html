@@ -3,85 +3,34 @@
   <h1>{{ title }}</h1>
   <time>{{ date | date('Y-m-d') }}</time>
   {{ contents | safe }}
+  {% if issueId %}
+  <div class="comments-title">Comments:</div>
+  <div id="comments" class="comments"></div>
+  <script type="text/javascript" src="http://datejs.googlecode.com/svn/trunk/build/date-en-US.js"></script>
   
   <script>
-    // parseUri 1.2.2
-    // (c) Steven Levithan <stevenlevithan.com>
-    // MIT License
-    
-    function parseUri (str) {
-    	var	o   = parseUri.options,
-    		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
-    		uri = {},
-    		i   = 14;
-    
-    	while (i--) uri[o.key[i]] = m[i] || "";
-    
-    	uri[o.q.name] = {};
-    	uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-    		if ($1) uri[o.q.name][$1] = $2;
-    	});
-    
-    	return uri;
-    };
-    
-    parseUri.options = {
-    	strictMode: false,
-    	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
-    	q:   {
-    		name:   "queryKey",
-    		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-    	},
-    	parser: {
-    		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-    		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
-    	}
-    };
-    
-  </script>
-  <script>
+function loadComments(data) {
+      var comments = "";
+      for (var i=0; i<data.length; i++) {
+        var cuser = data[i].user.login;
+        var cuserlink = "https://www.github.com/" + data[i].user.login;
+        var clink = "https://github.com/pshomov/pshomov.github.io/issues/{{ issueId }}#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
+       var cbody = data[i].body;
+       var cavatarlink = data[i].user.avatar_url;
+       var cdate = Date.parse(data[i].created_at).toString("yyyy-MM-dd HH:mm:ss");
+ 
+       comments += "<div class='comment'>"+'<img src="' + cavatarlink + '" class="avatar">'+"<div class='comment__info'>"+"<div class='comment__header'><a class='comment__user' href=\""+ cuserlink + "\">" + cuser + "</a>" + "<a class='comment__date' href=\"" + clink + "\">" + cdate + "</a></div><div class='comment__body'>" + cbody + "</div></div></div>";
+     }
+     document.getElementById("comments").innerHTML = comments;
+   }
     var site = fermata.json('https://api.github.com');
-
-    var parsed = parseUri(window.location.href);
-    if (parsed.queryKey.code){
-      // getting back from github with code, need to get a token now
-      console.log('got code from the server')
-      fermata.json('https://github.com')('login')('oauth')('access_token').post({
-        client_id : 'f6549e6114dc291e8e11',
-        client_secret : 'ecb68e11ccde5939e84f97c96d136a35630420c5',
-        code : parsed.queryKey.code,
-        redirect_uri : (window.location.origin + window.location.pathname) 
-      }, function(err, data, headers){
-        console.log('exchange back')
-        console.log('err', err);
-        console.log('data', data);
-        console.log('header', headers);
-        
-      })} 
-      else     if (parsed.queryKey.access_token){
-        console.log('got access_token, checking for user presence')
-        site('user').get({access_token : parsed.queryKey.access_token}, function (err, data, headers){
-          console.log('user info');
-          console.log('err', err);
-          console.log('data', data);
-          console.log('header', headers);
-        });    
-      }
-      else {
-            window.location.href="https://github.com/login/oauth/authorize?client_id=f6549e6114dc291e8e11&state="+Date.now()+"&redirect_uri="+encodeURIComponent(window.location.origin + window.location.pathname);
-          }
-       
     
-//    site('repos','pshomov', 'pshomov.github.io','issues','1', 'comments').get(function (err, data, headers){
-//      console.log('err', err);
-//      console.log('data', data);
-//      console.log('header', headers);
-//    });
-//    site('repos','pshomov', 'pshomov.github.io','issues','1', 'comments').post({body : 'api generated comment'},function (err, data, headers){
-//      console.log('Posting comment');
-//      console.log('err', err);
-//      console.log('data', data);
-//      console.log('header', headers);
-//    })
-  </script>
+       
+    site('repos','pshomov', 'pshomov.github.io','issues','{{ issueId }}', 'comments').get(function (err, data, headers){
+      if (err == null){
+       loadComments(data); 
+      }
+    });
+  </script>  
+  {% endif %}
 {% endblock %}

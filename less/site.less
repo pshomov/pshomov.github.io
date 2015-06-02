@@ -101,3 +101,45 @@
 .my_name_is {
     text-align: center;
 }
+
+.comments-title {
+    margin-top: 2*@spacing;
+    margin-bottom: 2*@spacing;
+    padding-top: @spacing;
+    border-top: 1px solid lightgray;
+    font-weight: 700;
+}
+
+.avatar {
+    max-width: 10%;
+    max-height: 10%;
+    
+}
+
+.comments {
+    padding-bottom: @spacing;
+}
+.comment:not(:last-of-type) {
+    margin-bottom: @spacing;
+}
+.comment__info {
+    display: inline-block;
+    width: 90%;
+    padding-left: @spacing / 2;
+    vertical-align: top;
+}
+
+.comment__header {
+    background-color: #eeeeee;    
+}
+
+.comment__user {
+    padding-left: @spacing / 2;
+    font-weight: 700;
+    padding-right: @spacing / 2;
+}
+
+.comment__body {
+    margin: @spacing / 2 0 0 (@spacing / 2);
+    
+}

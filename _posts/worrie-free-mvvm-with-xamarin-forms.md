@@ -3,6 +3,7 @@ title: Worry-free MVVM with Xamarin Forms
 date: 2015-05-25
 draft: 
 template: post.html
+issueId: 1
 ---
 **TL;DR** - Super-clean MVVM example with automatic Command status updates [here](https://github.com/pshomov/mvvmeasy)
 ***

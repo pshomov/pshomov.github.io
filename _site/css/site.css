@@ -95,3 +95,37 @@ body {
 .my_name_is {
   text-align: center;
 }
+.comments-title {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-top: 20px;
+  border-top: 1px solid lightgray;
+  font-weight: 700;
+}
+.avatar {
+  max-width: 10%;
+  max-height: 10%;
+}
+.comments {
+  padding-bottom: 20px;
+}
+.comment:not(:last-of-type) {
+  margin-bottom: 20px;
+}
+.comment__info {
+  display: inline-block;
+  width: 90%;
+  padding-left: 10px;
+  vertical-align: top;
+}
+.comment__header {
+  background-color: #eeeeee;
+}
+.comment__user {
+  padding-left: 10px;
+  font-weight: 700;
+  padding-right: 10px;
+}
+.comment__body {
+  margin: 10px 0 0 10px;
+}
