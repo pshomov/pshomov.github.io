@@ -38,4 +38,4 @@ Hope this makes sense, the source for a complete example is on [GitHub](https://
 
 ~~**BTW**: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please [create an issue on the example](https://github.com/pshomov/mvvmeasy/issues) and let's have the conversation over there ;)~~
 
-**Update:** As promised I have a way to post comments, but it's somewhat too-smart-for-its-own-good so I guess I will have to write a post about that ;) 
+**Update:** As promised I have a way to post comments, but it's somewhat I-am-too-smart-for-my-own-good so I guess I will have to write a post about that ;) 
