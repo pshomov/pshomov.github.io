@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="content">
-  <h1>Worry-free MVVM with Xamarin Forms</h1>
+  <h1 href="top">Worry-free MVVM with Xamarin Forms</h1>
   <time>2015-05-25</time>
   <p><strong>TL;DR</strong> - Super-clean MVVM example with automatic Command status updates <a href="https://github.com/pshomov/mvvmeasy">here</a></p>
 <hr>
@@ -84,12 +84,16 @@ And here is how the new model looks like:</p>
 
 <p>Testing this model now becomes really a rather simple and elegant exercise of changing properties and asserting on the value of other properties and no need to worry about bookkeeping regarding who update who.</p>
 <p>Hope this makes sense, the source for a complete example is on <a href="https://github.com/pshomov/mvvmeasy">GitHub</a>.</p>
-<p><strong>BTW</strong>: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please <a href="https://github.com/pshomov/mvvmeasy/issues">create an issue on the example</a> and let&#39;s have the conversation over there ;) </p>
+<p><del><strong>BTW</strong>: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please <a href="https://github.com/pshomov/mvvmeasy/issues">create an issue on the example</a> and let&#39;s have the conversation over there ;)</del></p>
+<p><strong>Update:</strong> As promised I have a way to post comments, but it&#39;s somewhat too-smart-for-its-own-good so I guess I will have to write a post about that ;) </p>
 
   
-  <div class="comments-title">Comments (powered by GitHub issues):</div>    
-  <div id="comments" class="comments"></div>
-  <div class="hcenter comments__post"><button>Post your comment&nbsp;<i class="fa fa-github"></i></button></div>
+  <div class="comments-title" href="comments">Comments (powered by GitHub issues):</div>    
+  <div id="comments" class="comments">
+    <div class="hcenter spinner">
+    </div>
+  </div>
+  <div class="hcenter comments__post"><a class="button" href="https://github.com/pshomov/pshomov.github.io/issues/1">Post your comment&nbsp;<i class="fa fa-github"></i></a></div>
   <script>
     function formatCommentTimestamp(timestamp) {
       return timestamp.toLocaleString();

@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% block body %}
-  <h1>{{ title }}</h1>
+  <h1 href="top">{{ title }}</h1>
   <time>{{ date | date('Y-m-d') }}</time>
   {{ contents | safe }}
   {% if issueId %}
-  <div class="comments-title">Comments (powered by GitHub issues):</div>    
-  <div id="comments" class="comments"></div>
-  <div class="hcenter comments__post"><button>Post your comment&nbsp;<i class="fa fa-github"></i></button></div>
+  <div class="comments-title" href="comments">Comments (powered by GitHub issues):</div>    
+  <div id="comments" class="comments">
+    <div class="hcenter spinner">
+    </div>
+  </div>
+  <div class="hcenter comments__post"><a class="button" href="https://github.com/pshomov/pshomov.github.io/issues/{{ issueId }}">Post your comment&nbsp;<i class="fa fa-github"></i></a></div>
   <script>
     function formatCommentTimestamp(timestamp) {
       return timestamp.toLocaleString();
