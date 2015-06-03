@@ -1,6 +1,7 @@
 ---
 title: Worry-free MVVM with Xamarin Forms
 date: 2015-05-25
+updated: 2015-06-02
 draft: 
 template: post.html
 issueId: 1
