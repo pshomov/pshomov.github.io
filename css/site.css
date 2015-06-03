@@ -95,25 +95,18 @@ body {
 .my_name_is {
   text-align: center;
 }
-.avatar {
-  max-width: 10%;
-}
-.comments-hat {
+.comments-title {
   margin-top: 40px;
   margin-bottom: 40px;
   padding-top: 20px;
   border-top: 1px solid lightgray;
   font-weight: 700;
 }
-.comments-title,
-.comments-post {
-  display: inline-block;
-  margin: 0;
-  width: 50%;
-  vertical-align: top;
+.avatar {
+  max-width: 10%;
 }
-.comments-post > button {
-  float: right;
+.comments__post {
+  margin: 20px auto;
 }
 .comments {
   padding-bottom: 20px;
@@ -143,4 +136,6 @@ button {
   background-color: #090909;
   color: #ffa500;
   padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 700;
 }
