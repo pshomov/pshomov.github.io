@@ -105,28 +105,19 @@
 }
 
 .comments-title {
-}
-
-.avatar {
-    max-width: 10%;
-}
-
-.comments-hat {
     margin-top: 2*@spacing;
     margin-bottom: 2*@spacing;
     padding-top: @spacing;
     border-top: 1px solid lightgray;
     font-weight: 700;    
 }
-.comments-title, .comments-post{
-    display: inline-block;
-    margin: 0;
-    width: 50%;
-    vertical-align: top;
+
+.avatar {
+    max-width: 10%;
 }
 
-.comments-post > button{
-    float: right;
+.comments__post{
+    margin: @spacing auto;
 }
 
 .comments {
@@ -162,4 +153,6 @@ button {
     background-color: @primary-color;
     color: @secondary-color;
     padding: @spacing/2 @spacing;
+    font-size: 20px;
+    font-weight: 700;
 }
