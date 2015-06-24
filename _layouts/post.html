@@ -24,7 +24,7 @@
        var cavatarlink = data[i].user.avatar_url;
        var cdate = formatCommentTimestamp(new Date(data[i].created_at));
     
-       comments += "<div class='comment'>"+'<img src="' + cavatarlink + '" class="avatar">'+"<div class='comment__info'>"+"<div class='comment__header'><a class='comment__user' href=\""+ cuserlink + "\">" + cuser + "</a>" + "<a class='comment__date' href=\"" + clink + "\">" + cdate + "</a></div><div class='comment__body'>" + cbody + "</div></div></div>";
+       comments += "<div class='comment'>"+'<img src="' + cavatarlink + '" class="avatar">'+"<div class='comment__info'>"+"<div class='comment__header'><a class='comment__user' href=\""+ cuserlink + "\">" + cuser + "</a>" + "<a class='comment__date' href=\"" + clink + "\">" + cdate + "</a></div><div class='comment__body'>" + marked(cbody) + "</div></div></div>";
      }
      if (comments == ""){
        comments = '<div class="hcenter">No comments have been posted yet, wanna go first? <i class="fa fa-hand-o-down"></i></div>';
