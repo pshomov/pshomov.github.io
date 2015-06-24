@@ -56,7 +56,7 @@ body {
 .content p {
   font-size: 18px;
 }
-.content p:first-of-type {
+.content > p:first-of-type {
   margin-top: 60px;
 }
 .content hr {
