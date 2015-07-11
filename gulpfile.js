@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
-var source = require('vinyl-source-stream');
 var merge = require('merge-stream');
 
 var del = require('del');
