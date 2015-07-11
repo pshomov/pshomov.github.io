@@ -131,8 +131,8 @@ gulp.task('imagemin', function() {
 });
 
 gulp.task('copy', function() {
-    // return gulp.src(['app/*.txt', 'app/*.ico', 'app/fonts'])
-    //     .pipe(gulp.dest('dist'));
+    return gulp.src(['build/*.xml'])
+        .pipe(gulp.dest('dist'));
 })
 
 gulp.task('copyFonts', function() {
@@ -192,7 +192,7 @@ gulp.task('bundle', function() {
 });
 
 gulp.task('build', function(callback) {
-    runSequence(['clean:dev', 'clean:dist'], [ 'process_images'], ['imagemin', 'styles', 'copy', 'copyFonts', 'gen'],
+    runSequence(['clean:dev', 'clean:dist'], [ 'process_images', 'gen'], ['imagemin', 'styles', 'copy', 'copyFonts'],
         ['bundle'], callback);
 });
 
