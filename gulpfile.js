@@ -88,26 +88,19 @@ gulp.task('gen', function(cb) {
 });
 
 gulp.task('process_images', function(){
-    return merge(
-        gulp.src('public/imgs/me-original.png')
-            .pipe($.imageResize({
-                width: 200,
-                height: 200,
-                crop: false,
-                upscale: false
+        return gulp.src('public/imgs/me-original.png')
+            .pipe($.responsive({
+                'me-original.png': [{
+                    width: 200,
+                    height: 200,
+                    rename: 'me.png'
+                },{
+                    width: 400,
+                    height: 400,
+                    rename: 'me@2x.png'
+                }]
             }))
-            .pipe($.rename('imgs/me.png'))        
-            .pipe(gulp.dest('.tmp')),
-        gulp.src('public/imgs/me-original.png')
-            .pipe($.imageResize({
-                width: 400,
-                height: 400,
-                crop: false,
-                upscale: false
-            }))
-            .pipe($.rename('imgs/me@2x.png'))
-            .pipe(gulp.dest('.tmp'))
-    );
+            .pipe(gulp.dest('.tmp/imgs'))
 });
 
 gulp.task('clean:dev', function() {
