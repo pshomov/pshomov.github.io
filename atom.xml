@@ -4,13 +4,42 @@
   <title><![CDATA[ Petar's blog ]]></title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>2015-08-11T10:00:000</updated>  
+  <updated>2015-09-22T10:00:000</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
     <email>pshomov@gmail.com</email>
   </author>
 
+  
+  <entry>
+    <link type="text/html" rel="alternate" href="http://pshomov.github.io/common-problems-with-mvvm-apps"/>
+    <title>Common problems with MVVM apps</title>
+    <published>2015-09-22</published>
+    <updated>2015-09-22</updated>
+    <author>
+      <name>Petar Shomov</name>
+      <uri>http://pshomov.github.io/</uri>
+    </author>
+    <content type="html"><![CDATA[ <p>Those few who have read my blog before might remember me raving about the combo <a href="/worry-free-mvvm-with-xamarin-forms/">Fody.PropertyChanged + MVVMCommand</a>. I was pretty excited to get some good comments on that post and it is really <a href="/worry-free-mvvm-with-xamarin-forms/#comments">the comments</a> that are the reason I am writing this post.</p>
+<p>I have to say it right away - I am not very experienced writing MVVM apps. I am quite experienced developer (~20 years of experience) but I just haven&#39;t been around <strong>native desktop</strong> app development in the last 10 years. I did find myself involved recently however in Xamarin.Forms mobile apps and I must say MVVM is pretty nice. I should mention I have been doing a lot of web development in JavaScript both server and client side which should bring back a bit of credibility to my observations.</p>
+<p>So after being around <a href="http://angularjs.org">AngularJS</a> and <a href="http://facebook.github.io/react/">React</a> here are the things that I find wrong with most of the examples of MVVM apps I find on the web:</p>
+<ul>
+<li><p><strong>App logic is distributed and disconnected</strong></p>
+<p>This is the main point really and the other two are a consequence of it - there is no central app object or a system which controls the flow and holds the state of the app.</p>
+</li>
+<li><p><strong>Too much logic and responsibilities in the views</strong></p>
+<p>  Since app logic has no special home it is spread over views. Those are fetching data from services and transforming it to their own structure, doing navigation to other views, etc. These extra responsibility only make changing the flow of the app and reusing the views more difficult. I am talking about view models like <a href="https://github.com/dotnetcurry/wpf-mvvmlight">this</a>, <a href="https://github.com/MvvmCross/MvvmCross-Tutorials/tree/master/Sample%20-%20TwitterSearch/TwitterSearch.Core/views">this</a> and <a href="https://github.com/rid00z/FreshMvvm/blob/master/samples/FreshMvvmSampleApp/FreshMvvmSampleApp/PageModels/ContactPageModel.cs">this</a> one. In my opinion views should receive data, take care of the user interactions in the view and send out notifications/actions with the data the user has submitted. Here is a link to a blog post by Adam Kemp that goes in detail about <a href="http://blog.adamkemp.com/2015/03/decoupling-views.html">decoupled views</a>.</p>
+</li>
+<li><p><strong>Not good enough testing of the behaviour of the app due to issues described in the previous two points</strong></p>
+<p>Testing of the app is limited to testing individual views, it is quite hard to test the flow of the app unless you are up for setting up a lot of infrastructure and usually plenty of mocking.</p>
+</li>
+</ul>
+<p>MVVM frameworks that are on the market either (inadvertently) support these design shortcomings (dependency injection containers make it super easy to get all kinds of services in the viewmodel with minimal effort) or at best do not address them at all. To be fair these frameworks are mostly trying to smooth out the MVVM pattern and are not trying too hard to advise you on app architecture but their samples are doing that in a way.</p>
+<p>So back to those comments mentioned earlier.<br/> 
+I wrote I am going to write <strong>my</strong> idea of a good mobile app and I would like to show you what I have been up to. Coming up real soon ;)</p>
+ ]]></content>
+  </entry>
   
   <entry>
     <link type="text/html" rel="alternate" href="http://pshomov.github.io/comments-powered-by-github"/>

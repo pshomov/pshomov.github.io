@@ -60,34 +60,25 @@
                             </div>
                         </div>
                         <div class="content">
-  <h1 href="top">Worry-free MVVM with Xamarin Forms</h1>
-  <time>2015-05-25</time>
-  <p><strong>TL;DR</strong> - Super-clean MVVM example with automatic Command status updates <a href="https://github.com/pshomov/mvvmeasy">here</a></p>
-<hr>
-<p>Xamarin Forms is great for writing decent looking applications on all three major mobile platforms - iOS, Android and Windows Mobile. The Xaml support and databindings are great help to keep things clean and simple. </p>
-<p>So I am working on a Xamarin Forms project where we were in the process of choosing some framework or library to help us with implementing the MVVM pattern and more specifically the view models where it is necessary to send notifications as properties get changed. We looked at <a href="http://www.mvvmlight.net">MvvmLight</a> as well as a preview version of <a href="http://brianlagunas.com/first-look-at-the-prism-for-xamarin-forms-preview/">Prism</a>. Both of them provide a base class which has helper methods for implementing properties with sending notifications. Here is how a simple Login view model looks with Prism</p>
-<script src="https://gist.github.com/pshomov/e35832cbf51c82ac50c7.js"></script>
-
-<p>A couple of things to notice here:</p>
+  <h1 href="top">Common problems with MVVM apps</h1>
+  <time>2015-09-22</time>
+  <p>Those few who have read my blog before might remember me raving about the combo <a href="/worry-free-mvvm-with-xamarin-forms/">Fody.PropertyChanged + MVVMCommand</a>. I was pretty excited to get some good comments on that post and it is really <a href="/worry-free-mvvm-with-xamarin-forms/#comments">the comments</a> that are the reason I am writing this post.</p>
+<p>I have to say it right away - I am not very experienced writing MVVM apps. I am quite experienced developer (~20 years of experience) but I just haven&#39;t been around <strong>native desktop</strong> app development in the last 10 years. I did find myself involved recently however in Xamarin.Forms mobile apps and I must say MVVM is pretty nice. I should mention I have been doing a lot of web development in JavaScript both server and client side which should bring back a bit of credibility to my observations.</p>
+<p>So after being around <a href="http://angularjs.org">AngularJS</a> and <a href="http://facebook.github.io/react/">React</a> here are the things that I find wrong with most of the examples of MVVM apps I find on the web:</p>
 <ul>
-<li>Lot&#39;s of repetitive code in the property getters and setters</li>
-<li>Extra complexity in both the property setters and the command itself due to keeping the enabled/disabled state of the Login command in sync (lines 22, 30, 63 and 72)</li>
-<li>We need extra (and may I say not particularly pretty) testing of whether the property change notifications were sent and the update of the Login command status was triggered</li>
+<li><p><strong>App logic is distributed and disconnected</strong></p>
+<p>This is the main point really and the other two are a consequence of it - there is no central app object or a system which controls the flow and holds the state of the app.</p>
+</li>
+<li><p><strong>Too much logic and responsibilities in the views</strong></p>
+<p>  Since app logic has no special home it is spread over views. Those are fetching data from services and transforming it to their own structure, doing navigation to other views, etc. These extra responsibility only make changing the flow of the app and reusing the views more difficult. I am talking about view models like <a href="https://github.com/dotnetcurry/wpf-mvvmlight">this</a>, <a href="https://github.com/MvvmCross/MvvmCross-Tutorials/tree/master/Sample%20-%20TwitterSearch/TwitterSearch.Core/views">this</a> and <a href="https://github.com/rid00z/FreshMvvm/blob/master/samples/FreshMvvmSampleApp/FreshMvvmSampleApp/PageModels/ContactPageModel.cs">this</a> one. In my opinion views should receive data, take care of the user interactions in the view and send out notifications/actions with the data the user has submitted. Here is a link to a blog post by Adam Kemp that goes in detail about <a href="http://blog.adamkemp.com/2015/03/decoupling-views.html">decoupled views</a>.</p>
+</li>
+<li><p><strong>Not good enough testing of the behaviour of the app due to issues described in the previous two points</strong></p>
+<p>Testing of the app is limited to testing individual views, it is quite hard to test the flow of the app unless you are up for setting up a lot of infrastructure and usually plenty of mocking.</p>
+</li>
 </ul>
-<p>In order to clean things up let&#39;s use <a href="https://github.com/Fody/PropertyChanged#your-code">Fody.PropertyChanged</a> and get rid of Prism&#39;s BindableBase. If you have not looked at this MVVM specialized weaver, please take your time now to get introduced. I think you might like it.
-And here is how the new model looks like:</p>
-<script src="https://gist.github.com/pshomov/eb3f85471e632bbcb9f6.js"></script>
-
-<p>I think Fody.PropertyChanged is great, it helps us get rid of those super-boring, error-prone property getters and setters but unfortunately does nothing about updating the Login command state. In fact this version of the model does not work correctly since the Login command never gets enabled. One way to fix this problem is by making the Login command state be more MVVM-y. To do that let&#39;s use <a href="https://github.com/pshomov/mvvmeasy/blob/master/Infrastructure/MVVMCommand.cs">MVVMCommand</a> which is exactly like a normal Xamarin Forms Command except the second parameter has to be a lambda that returns the value of a property. Let&#39;s see how the fixed model looks:</p>
-<script src="https://gist.github.com/pshomov/4b158ca0b0801809b0d6.js"></script>
-
-<p>Notice how in line 28 the state of the command becomes extracted to a property - IsLoginEnabled. The reason that is good is because it plays on the strength of Fody.PropertyChanged. <strong>Meaning that Fody.PropertyChanged sends out ProprtyChanged notifications about IsLoginEnabled whenever one of the properties it&#39;s value is based on changes</strong>. Now all MVVMCommand needs to do is listen for those notifications and do the updating of the enabled/disabled command state. It&#39;s actually pretty simple:</p>
-<script src="https://gist.github.com/pshomov/4e2b51ef94ca3c6cc508.js"></script>
-
-<p>Testing this model now becomes really a rather simple and elegant exercise of changing properties and asserting on the value of other properties and no need to worry about bookkeeping regarding who update who.</p>
-<p>Hope this makes sense, the source for a complete example is on <a href="https://github.com/pshomov/mvvmeasy">GitHub</a>.</p>
-<p><del><strong>BTW</strong>: Sorry for not providing a way to do comments, now actively working on it, I promise. Meanwhile please <a href="https://github.com/pshomov/mvvmeasy/issues">create an issue on the example</a> and let&#39;s have the conversation over there ;)</del></p>
-<p><strong>Update:</strong> As promised I have a way to post comments, but it&#39;s somewhat I-am-too-smart-for-my-own-good so I guess I will have to write a post about that ;) </p>
+<p>MVVM frameworks that are on the market either (inadvertently) support these design shortcomings (dependency injection containers make it super easy to get all kinds of services in the viewmodel with minimal effort) or at best do not address them at all. To be fair these frameworks are mostly trying to smooth out the MVVM pattern and are not trying too hard to advise you on app architecture but their samples are doing that in a way.</p>
+<p>So back to those comments mentioned earlier.<br/> 
+I wrote I am going to write <strong>my</strong> idea of a good mobile app and I would like to show you what I have been up to. Coming up real soon ;)</p>
 
   
   <div class="comments-title" href="comments">Comments (<a href="/comments-powered-by-github/">powered by GitHub issues</a>):</div>    
@@ -95,7 +86,7 @@ And here is how the new model looks like:</p>
     <div class="hcenter spinner">
     </div>
   </div>
-  <div class="hcenter comments__post"><a class="button" href="https://github.com/pshomov/pshomov.github.io/issues/1">Post your comment&nbsp;<i class="fa fa-github"></i></a></div>
+  <div class="hcenter comments__post"><a class="button" href="https://github.com/pshomov/pshomov.github.io/issues/3">Post your comment&nbsp;<i class="fa fa-github"></i></a></div>
   <script>
     function formatCommentTimestamp(timestamp) {
       return timestamp.toLocaleString();
@@ -105,7 +96,7 @@ And here is how the new model looks like:</p>
       for (var i=0; i<data.length; i++) {
         var cuser = data[i].user.login;
         var cuserlink = "https://www.github.com/" + data[i].user.login;
-        var clink = "https://github.com/pshomov/pshomov.github.io/issues/1#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
+        var clink = "https://github.com/pshomov/pshomov.github.io/issues/3#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
        var cbody = data[i].body;
        var cavatarlink = data[i].user.avatar_url;
        var cdate = formatCommentTimestamp(new Date(data[i].created_at));
@@ -119,7 +110,7 @@ And here is how the new model looks like:</p>
     }
     var site = fermata.json('https://api.github.com');
     
-    site('repos','pshomov', 'pshomov.github.io','issues','1', 'comments').get(function (err, data, headers){
+    site('repos','pshomov', 'pshomov.github.io','issues','3', 'comments').get(function (err, data, headers){
       if (err == null){
        loadComments(data); 
       }
