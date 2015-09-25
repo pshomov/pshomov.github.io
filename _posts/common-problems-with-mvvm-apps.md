@@ -1,6 +1,7 @@
 ---
 title: Common problems with MVVM apps
 date: 2015-09-22
+updated: 2015-09-25
 draft: false
 template: post.html
 issueId: 3
@@ -8,7 +9,9 @@ issueId: 3
 
 Those few who have read my blog before might remember me raving about the combo [Fody.PropertyChanged + MVVMCommand](/worry-free-mvvm-with-xamarin-forms/). I was pretty excited to get some good comments on that post and it is really [the comments](/worry-free-mvvm-with-xamarin-forms/#comments) that are the reason I am writing this post.
 
-I have to say it right away - I am not very experienced writing MVVM apps. I am quite experienced developer (~20 years of experience) but I just haven't been around **native desktop** app development in the last 10 years. I did find myself involved recently however in Xamarin.Forms mobile apps and I must say MVVM is pretty nice. I should mention I have been doing a lot of web development in JavaScript both server and client side which should bring back a bit of credibility to my observations.
+~~I have to say it right away - I am not very experienced writing MVVM apps. I am quite experienced developer (~20 years of experience) but I just haven't been around **native desktop** app development in the last 10 years. I did find myself involved recently however in Xamarin.Forms mobile apps and I must say MVVM is pretty nice. I should mention I have been doing a lot of web development in JavaScript both server and client side which should bring back a bit of credibility to my observations.~~
+
+I realized I seem to have underplayed myself so here is what I would rather say - I have read and watched a lot connected with MVVM and have about 1 year of on/off writing MVVM apps(Xamarin Forms). I also have been using or examining UI frameworks in JavaScript, Ruby, Python. Mostly JavaScript though.
 
 So after being around [AngularJS](http://angularjs.org) and [React](http://facebook.github.io/react/) here are the things that I find wrong with most of the examples of MVVM apps I find on the web:
 
