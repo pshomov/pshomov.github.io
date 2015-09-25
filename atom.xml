@@ -4,7 +4,7 @@
   <title><![CDATA[ Petar's blog ]]></title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>2015-09-22T10:00:000</updated>  
+  <updated>2015-09-25T10:00:000</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
@@ -16,13 +16,14 @@
     <link type="text/html" rel="alternate" href="http://pshomov.github.io/common-problems-with-mvvm-apps"/>
     <title>Common problems with MVVM apps</title>
     <published>2015-09-22</published>
-    <updated>2015-09-22</updated>
+    <updated>2015-09-25</updated>
     <author>
       <name>Petar Shomov</name>
       <uri>http://pshomov.github.io/</uri>
     </author>
     <content type="html"><![CDATA[ <p>Those few who have read my blog before might remember me raving about the combo <a href="/worry-free-mvvm-with-xamarin-forms/">Fody.PropertyChanged + MVVMCommand</a>. I was pretty excited to get some good comments on that post and it is really <a href="/worry-free-mvvm-with-xamarin-forms/#comments">the comments</a> that are the reason I am writing this post.</p>
-<p>I have to say it right away - I am not very experienced writing MVVM apps. I am quite experienced developer (~20 years of experience) but I just haven&#39;t been around <strong>native desktop</strong> app development in the last 10 years. I did find myself involved recently however in Xamarin.Forms mobile apps and I must say MVVM is pretty nice. I should mention I have been doing a lot of web development in JavaScript both server and client side which should bring back a bit of credibility to my observations.</p>
+<p><del>I have to say it right away - I am not very experienced writing MVVM apps. I am quite experienced developer (~20 years of experience) but I just haven&#39;t been around <strong>native desktop</strong> app development in the last 10 years. I did find myself involved recently however in Xamarin.Forms mobile apps and I must say MVVM is pretty nice. I should mention I have been doing a lot of web development in JavaScript both server and client side which should bring back a bit of credibility to my observations.</del></p>
+<p>I realized I seem to have underplayed myself so here is what I would rather say - I have read and watched a lot connected with MVVM and have about 1 year of on/off writing MVVM apps(Xamarin Forms). I also have been using or examining UI frameworks in JavaScript, Ruby, Python. Mostly JavaScript though.</p>
 <p>So after being around <a href="http://angularjs.org">AngularJS</a> and <a href="http://facebook.github.io/react/">React</a> here are the things that I find wrong with most of the examples of MVVM apps I find on the web:</p>
 <ul>
 <li><p><strong>App logic is distributed and disconnected</strong></p>
