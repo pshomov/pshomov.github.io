@@ -1,7 +1,7 @@
 ---
 title: Common problems with MVVM apps
 date: 2015-09-22
-updated: 2015-09-25
+updated: 2015-09-26
 draft: false
 template: post.html
 issueId: 3
@@ -21,7 +21,7 @@ So after being around [AngularJS](http://angularjs.org) and [React](http://faceb
 
 * **Too much logic and responsibilities in the views**
 
-	Since app logic has no special home it is spread over views. Those are fetching data from services and transforming it to their own structure, doing navigation to other views, etc. These extra responsibility only make changing the flow of the app and reusing the views more difficult. I am talking about view models like [this](https://github.com/dotnetcurry/wpf-mvvmlight), [this](https://github.com/MvvmCross/MvvmCross-Tutorials/tree/master/Sample%20-%20TwitterSearch/TwitterSearch.Core/views) and [this](https://github.com/rid00z/FreshMvvm/blob/master/samples/FreshMvvmSampleApp/FreshMvvmSampleApp/PageModels/ContactPageModel.cs) one. In my opinion views should receive data, take care of the user interactions in the view and send out notifications/actions with the data the user has submitted. Here is a link to a blog post by Adam Kemp that goes in detail about [decoupled views](http://blog.adamkemp.com/2015/03/decoupling-views.html).
+	Since app logic has no special home it is spread over views. Those are fetching data from services and transforming it to their own structure, doing navigation to other views, etc. These extra responsibility only make changing the flow of the app and reusing the views more difficult. I am talking about view models like [this](https://github.com/dotnetcurry/wpf-mvvmlight/blob/master/WPF_MVVMLight_CRUD/ViewModel/MainViewModel.cs), [this](https://github.com/MvvmCross/MvvmCross-Tutorials/blob/master/Sample%20-%20TwitterSearch/TwitterSearch.Core/ViewModels/TwitterViewModel.cs) and [this](https://github.com/rid00z/FreshMvvm/blob/master/samples/FreshMvvmSampleApp/FreshMvvmSampleApp/PageModels/ContactPageModel.cs) one. In my opinion views should receive data, take care of the user interactions in the view and send out notifications/actions with the data the user has submitted. Here is a link to a blog post by Adam Kemp that goes in detail about [decoupled views](http://blog.adamkemp.com/2015/03/decoupling-views.html).
  
 * **Not good enough testing of the behaviour of the app due to issues described in the previous two points**
 
@@ -31,3 +31,5 @@ MVVM frameworks that are on the market either (inadvertently) support these desi
 
 So back to those comments mentioned earlier.<br/> 
 I wrote I am going to write **my** idea of a good mobile app and I would like to show you what I have been up to. Coming up real soon ;)
+
+_UPDATE:_ fixed broken links to the examples
