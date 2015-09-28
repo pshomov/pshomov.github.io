@@ -4,13 +4,43 @@
   <title><![CDATA[ Petar's blog ]]></title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>2015-09-26T10:00:000</updated>  
+  <updated>2015-09-28T10:00:000</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
     <email>pshomov@gmail.com</email>
   </author>
 
+  
+  <entry>
+    <link type="text/html" rel="alternate" href="http://pshomov.github.io/common-problems-with-mvvm-apps-take-two"/>
+    <title>Common problems with MVVM apps - take two</title>
+    <published>2015-09-28</published>
+    <updated>2015-09-28</updated>
+    <author>
+      <name>Petar Shomov</name>
+      <uri>http://pshomov.github.io/</uri>
+    </author>
+    <content type="html"><![CDATA[ <p>My last post <a href="/common-problems-with-mvvm-apps/">Common problems with MVVM</a> was it seems pretty vague and needs a concrete example to make a bit more sense. Not to mention in an attempt to not sound too authoritative I managed to represent myself like someone who is just starting with MVVM and and is taking too big of a bite.</p>
+<p>Let&#39;s dive right into a typical example of a login page view model from a Xamarin Forms app:</p>
+<script src="https://gist.github.com/pshomov/eb03fc62e07b9497d12a.js"></script>
+
+<p>In case you are wondering - I am using <a href="https://github.com/Fody/PropertyChanged">Fody.PropertyChanged</a> to skip the minutiae of property change notifications. </p>
+<p>The problem in my opinion is in the Login command - lines 23-25. Upon triggering the Login command the view model invokes the authentication process and in the case of success, navigates to the &quot;main&quot; view.</p>
+<ol>
+<li>The view model should not know about the authentication process at all. Neither when nor how it should be accomplished. It&#39;s not important to the view and makes it harder to test it. Should we decide to handle failure to authenticate, the code in that login command will get more complicated real quick.  </li>
+<li>The view model should not know anything about the navigation process. Again neither when nor how. Not relevant to the view. It makes it more difficult to experiment with the view or use it in a different way - for example for Sign Up.</li>
+</ol>
+<p>I think we would be better off with a view model more like this one:</p>
+<script src="https://gist.github.com/pshomov/b297f5e661f88689cca4.js"></script>
+
+<p>Yes, I made up a pubsub &quot;thing&quot; that allows for publishing and subscribing ;-).</p>
+<p>Now this model is much simpler and rather easy to test. In fact it is so simple I think I just lost interest in testing it.
+I would rather test the logic that controls it, and that is what I really wanted to get you curious about ;)</p>
+<p>I will keep working on that new sample but meanwhile I encourage you to post your thoughts in the comments below.</p>
+<p>Until next time.</p>
+ ]]></content>
+  </entry>
   
   <entry>
     <link type="text/html" rel="alternate" href="http://pshomov.github.io/common-problems-with-mvvm-apps"/>
