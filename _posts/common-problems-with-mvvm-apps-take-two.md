@@ -24,8 +24,12 @@ I think we would be better off with a view model more like this one:
 
 Yes, I made up a pubsub "thing" that allows for publishing and subscribing ;-).
 
+Generally speaking if view models are not the place for app logic, what kind of logic should be in there? I think we should have there animation logic, syncing states between controls in the view and in general logic directly connected to the view itself and its components.
+
 Now this model is much simpler and rather easy to test. In fact it is so simple I think I just lost interest in testing it.
+
 I would rather test the logic that controls it, and that is what I really wanted to get you curious about ;)
+
 
 I will keep working on that new sample but meanwhile I encourage you to post your thoughts in the comments below.
 
