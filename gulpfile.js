@@ -11,6 +11,7 @@ var Metalsmith = require('metalsmith'),
     drafts = require('metalsmith-drafts'),
     markdown = require('metalsmith-markdown'),
     templates = require('metalsmith-templates'),
+    swigHelpers = require('metalsmith-swig-helpers'),
     builddate = require('metalsmith-build-date'),
     collections = require('metalsmith-collections'),
     feed = require('metalsmith-feed-js'),
@@ -79,6 +80,19 @@ gulp.task('gen', function(cb) {
             };
             done();
         })
+        .use(swigHelpers({
+            filters: {
+                // Append a ! at the end of the given content. 
+                // {{ title|exclamation }} 
+                "preview": function(content) {
+                    return new Buffer(content.toString('utf-8').substr(0,10));
+                },
+            
+                // Encryption filter 
+                // {{ title|xorcrypt }} 
+                // "xorcrypt": "xor-crypt" // Does a require() on "xor-crypt" 
+            }
+        }))
         .use(templates({
             engine: 'swig',
             directory: '_layouts',
