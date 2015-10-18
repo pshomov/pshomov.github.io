@@ -1,7 +1,6 @@
 ---
 title: Compartmentalize logic
 date: 2015-10-20
-draft: false
 template: post.html
 issueId: 5
 ---

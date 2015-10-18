@@ -1,6 +1,7 @@
 ---
 title: Elements - visible, invisible and missing (part 1)
 date: 2014-05-19
+collection: published
 template: post.html
 ---
 

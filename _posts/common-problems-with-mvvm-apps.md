@@ -3,6 +3,7 @@ title: Common problems with MVVM apps
 date: 2015-09-22
 updated: 2015-09-29
 draft: false
+collection: published
 template: post.html
 issueId: 3
 ---

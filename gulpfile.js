@@ -67,12 +67,16 @@ gulp.task('gen', function(cb) {
                 pattern: '*.md',
                 sortBy: 'date',
                 reverse: true
+            },
+            published : {
+                sortBy: 'date',
+                reverse: true                
             }
         }))
         .use(markdown())
         .use(duplicate)
         .use(permalinks(':title'))
-        .use(feed({collection: 'articles'}))
+        .use(feed({collection: 'published'}))
         .use(function (files, metalsmith, done) {
             files['atom.xml'] = {
                 template: 'atom.html',
@@ -157,10 +161,15 @@ gulp.task('styles', function() {
 });
 
 gulp.task('pages', ['gen'],function(){
-  return gulp.src('build/**/*.html')
+  return gulp.src(['build/**/*.html'])
     .pipe($.injectReload())
     .pipe(gulp.dest('.tmp'))
     .pipe($.livereload());
+});
+
+gulp.task('feed', ['gen'],function(){
+  return gulp.src(['build/**/*.xml'])
+    .pipe(gulp.dest('.tmp'));
 });
 
 gulp.task('bundle', function() {
@@ -231,7 +240,7 @@ gulp.task('deploy', function () {
 
 gulp.task('serve', function() {
     $.livereload({start: true});
-    runSequence('clean:dev', 'styles', 'pages', 'process_images', 'webserver');
+    runSequence('clean:dev', 'styles', 'pages', 'feed', 'process_images', 'webserver');
 
     gulp.watch('less/*.less', ['styles']);
     gulp.watch(['_layouts/*.html','_posts/*'], ['pages']);

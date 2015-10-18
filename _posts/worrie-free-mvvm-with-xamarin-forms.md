@@ -4,6 +4,7 @@ date: 2015-05-25
 updated: 2015-06-02
 draft: 
 template: post.html
+collection: published
 issueId: 1
 ---
 **TL;DR** - Super-clean MVVM example with automatic Command status updates [here](https://github.com/pshomov/mvvmeasy)

@@ -2,6 +2,7 @@
 title: Comments powered by GitHub
 date: 2015-06-08
 draft: false
+collection: published
 template: post.html
 issueId: 2
 ---

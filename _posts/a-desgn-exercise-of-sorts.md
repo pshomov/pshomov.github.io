@@ -1,6 +1,7 @@
 ---
 title: A design exercise
 date: 2014-05-07
+collection: published
 draft: false
 template: post.html
 ---

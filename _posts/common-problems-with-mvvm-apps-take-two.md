@@ -2,6 +2,7 @@
 title: Common problems with MVVM apps - take two
 date: 2015-09-28
 draft: false
+collection: published
 template: post.html
 issueId: 4
 ---

@@ -2,6 +2,7 @@
 title: Elements - visible, invisible and missing (part 2)
 date: 2014-05-31
 draft: 
+collection: published
 template: post.html
 ---
 

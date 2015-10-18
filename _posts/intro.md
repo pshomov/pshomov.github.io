@@ -2,6 +2,7 @@
 title: Introduction
 date: 2014-05-02
 draft: false
+collection: published
 template: post.html
 ---
 

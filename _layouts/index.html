@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
-{% for article in articles %}
+{% for article in published %}
 <article class="index">
     <h2><a href="{{article.path}}" tabindex>{{article.title || '>>needs title <<'}}</a></h2>
     <h5>{{article.date | date('Y-m-d')}}</h5>
