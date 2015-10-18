@@ -12,9 +12,9 @@ And then I bumped into [Redux](http://redux.js.org) and I _loved_ everything abo
 So I rushed out and made a port to .NET which I call [Reducto](http://github.com/pshomov/reducto).
 
 Let me try to explain the basic concepts in Reducto:
- - Action - an object which describes what has happened - LoggingIn, SignedOut, etc. The object contains all the information relevant to the action - username, password, status, etc. Usually there are many actions in an app
- - Reducer - a side-effect free function that receives the current state of your app and an action. If the reducer does not know how to handle the action it should return the state as is. If the reducer can handle the action it makes a copy of the state, it modifies it in response to the action and returns the copy.
- - Store - it is an object that contains your whole app's state. It also has a reducer. We _dispatch_ an action to the store which hands it to the reducer together with the current app state and then uses the return value of the reducer as the new state of the app. There is only one store in your app. It's created when your app starts and gets destroyed when your app quits. Your MVVM view models can _subscribe_ to be notified when the state changes so they can update themselves accordingly. 
+ - **Action** - an object which describes what has happened - LoggingIn, SignedOut, etc. The object contains all the information relevant to the action - username, password, status, etc. Usually there are many actions in an app
+ - **Reducer** - a side-effect free function that receives the current state of your app and an action. If the reducer does not know how to handle the action it should return the state as is. If the reducer can handle the action it makes a copy of the state, it modifies it in response to the action and returns the copy.
+ - **Store** - it is an object that contains your whole app's state. It also has a reducer. We _dispatch_ an action to the store which hands it to the reducer together with the current app state and then uses the return value of the reducer as the new state of the app. There is only one store in your app. It's created when your app starts and gets destroyed when your app quits. Your MVVM view models can _subscribe_ to be notified when the state changes so they can update themselves accordingly. 
 
 Having a single reducer operate on the whole state of the app probably sounds a bit scary but the trick is to [_compose_ the reducer from many smaller, simpler reducers](https://en.wikibooks.org/wiki/Muggles%27_Guide_to_Harry_Potter/Magic/Reducto#Overview) which distribute the responsibility of updating differents parts of the state. 
 
@@ -22,8 +22,8 @@ The basic idea is to create a store and give it a reducer(a composite one quite 
   
 Besides these core concepts in Reducto(and Redux) there are a couple more that are quite useful:
 
- - Async action - a function that may have side effects. This is where you talk to your database, call a web service, navigate to a view model, etc. Async actions can also dispatch actions (as described in the core concepts). 
- - Middleware - these are functions that can be hooked in the Store dispatch mechanism so you can do things like logging, profiling, authorization, etc. It's sort of a plugin mechanism which can be quite useful.
+ - **Async action** - a function that may have side effects. This is where you talk to your database, call a web service, navigate to a view model, etc. Async actions can also dispatch actions (as described in the core concepts). 
+ - **Middleware** - these are functions that can be hooked in the Store dispatch mechanism so you can do things like logging, profiling, authorization, etc. It's sort of a plugin mechanism which can be quite useful.
  
 Let's jump right in and see an example. Let's look at a very simple model which is only concerned with logging a user in. To make things simple I have presented this in the form of a unit test with the assertions showing what the expectations are
 
