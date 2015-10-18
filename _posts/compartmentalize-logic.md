@@ -7,6 +7,7 @@ issueId: 5
 
 Alright, this is the thing that I have had burning desire to share with you. I think it is awesome. But before I get to that I would like to give you a quick outline how I got here.
 My [last post](/common-problems-with-mvvm-apps-take-two/) I was telling you about the friction I experienced trying to build a Xamarin Forms MVVM. I considered [ReactiveUI](http://reactiveui.net) since I found it really really promising. I also found it to be too much of an all-in kind of proposition and the lack of documentation to even get started really killed it for me. Turned to JavaScript community in search of good ideas, considered Flux and almost started on a Flux-inspired port in .NET. 
+
 And then I bumped into [Redux](http://redux.js.org) and I _loved_ everything about it - simple, powerful, versatile. It's like I head a blurry image of what I wanted and Redux just put everything in focus. I immediately knew it was exactly what I was looking for.
 
 So I rushed out and made a port to .NET which I call [Reducto](http://github.com/pshomov/reducto).
