@@ -51,4 +51,4 @@ A few interesting statistics regarding Reducto
 In my next post I will dive a bit deeper in Reducto - Async actions and Composite reducers and connecting all of this in a Xamarin Forms app. 
 The code for that post is already in development [over here](https://github.com/pshomov/reducto.sample).
 
-Please, do share your thoughs on this in the comments ;) 
+And please, do share your thoughs in the comments ;) 
