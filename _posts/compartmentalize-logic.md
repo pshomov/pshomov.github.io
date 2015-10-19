@@ -36,7 +36,7 @@ Defined are two actions - LoginStarted and LoginSucceeded. They contain interest
 On Line 31 we define a reducer for the app state and then we define how we handle both actions. On a side note, if an action is dispatched that is not handled by the reducer, he sends the app state unmodified back.
 
 Line 45 defines the app store and let the store have its reducer.<br>
-Line 47 we see a subscription to the store, which gets notified whenever there is an update to the state. In line 61 we remove the subscription;
+Line 47 we see a subscription to the store, which gets notified whenever there is an update to the state. In line 66 we remove the subscription.
 
 So here are the benefits that I see
 - the logic is isolated in those reducers
@@ -45,7 +45,7 @@ So here are the benefits that I see
 - framework agnostic - MVVM, MVC, WebForms apps can use it, but also this seems like an all around good way to structure any kind of app really.
 
 A few interesting statistics regarding Reducto
-- linus of code - ~260
+- lines of code - ~260
 - dependencies - 0
 - packaging - [NuGet PCL](https://www.nuget.org/packages/Reducto/)
 
