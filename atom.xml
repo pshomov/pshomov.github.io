@@ -4,7 +4,7 @@
   <title><![CDATA[ Petar's blog ]]></title>
   <link href="http://pshomov.github.io/"/>
   <link type="application/atom+xml" rel="self" href="http://pshomov.github.io/atom.xml"/>
-  <updated>2015-10-26T10:00:000</updated>  
+  <updated>2015-10-27T10:00:000</updated>  
   <id>http://pshomov.github.io/</id>
   <author>
     <name>Petar Shomov</name>
@@ -45,13 +45,13 @@
 <p>Defined are two actions - LoginStarted and LoginSucceeded. They contain interesting information submitted from the user in the case of the former action and the authenticating service for the latter one.<br>
 On Line 31 we define a reducer for the app state and then we define how we handle both actions. On a side note, if an action is dispatched that is not handled by the reducer, he sends the app state unmodified back.</p>
 <p>Line 45 defines the app store and let the store have its reducer.<br>
-Line 47 we see a subscription to the store, which gets notified whenever there is an update to the state. In line 66 we remove the subscription.</p>
+Line 47 we see a subscription to the store, which gets notified whenever there is an update to the state. In line 70 we remove the subscription.</p>
 <p>So here are the benefits that I see</p>
 <ul>
 <li>the logic is isolated in those reducers</li>
 <li>defining the reducers is very simple and does not require creating classes, inheriting or anything like that. A function is enough.</li>
 <li>testing is extremely simple - dispatch some actions, assert on the state</li>
-<li>framework agnostic - MVVM, MVC, WebForms apps can use it, but also this seems like an all around good way to structure any kind of app really.</li>
+<li>framework agnostic - MVVM, MVC, WebForms apps can use it, but also this seems like an all around good way to structure all kinds of apps really.</li>
 </ul>
 <p>A few interesting statistics regarding Reducto</p>
 <table>
