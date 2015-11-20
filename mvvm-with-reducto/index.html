@@ -88,7 +88,7 @@ Dispatching an <em>async action</em> cannot change the state but it can dispatch
 
 <p>Let&#39;s start with a few observation about async actions in general. </p>
 <ul>
-<li><p>Async actions are best created by helper methods such as <code>asyncActionVoid</code> since they might need to receive their arguments in two stages - at the place of the <em>dispatching</em> of the action and then later on internally in Reducto. So a little bit of currying is used to achieve that, take a look.  </p>
+<li><p>Use the store&#39;s <code>asyncAction</code> and <code>asyncActionVoid</code> methods to create async action. In more detail: Async actions are best created by helper methods such as <code>asyncActionVoid</code> since they might need to receive their arguments in two stages - at the place of the <em>dispatching</em> of the action and then later on internally in Reducto. So a little bit of currying is used to achieve that, take a look.  </p>
 <script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=asyncaction.void.cs"></script>
 </li>
 <li><p>As you can see, an async action takes as a first parameter a <em>dispatch</em> delegate which allows the async action to dispatch synchronous ones. This comes useful when it is needed to update the app state. The second parameter is another delegate which allows us to get the app state - <em>getState</em>, useful if we need that info to make some decision about the behaviour. The third parameter is optional and is the only way for the one <em>invoking</em> the async action to pass some information to it(remember that currying part? this&#39;s why). If the action does not need any parameters at the time of the invocation, go ahead and create async action with only two parameters.</p>
