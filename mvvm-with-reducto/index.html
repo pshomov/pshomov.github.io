@@ -1,0 +1,182 @@
+<!doctype html>
+<!--[if lt IE 7]>
+    <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+    <![endif]-->
+    <!--[if IE 7]>
+        <html class="no-js lt-ie9 lt-ie8">
+        <![endif]-->
+        <!--[if IE 8]>
+            <html class="no-js lt-ie9">
+            <![endif]-->
+            <!--[if gt IE 8]>
+                <!-->
+                <html class="no-js">
+                <!--<![endif]-->
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <title></title>
+                <meta name="description" content="This is Petar's blog about programming and design">
+                <link rel="me" type="text/html" href="http://twitter.com/pshomov">                    
+                <link rel='alternate' type='application/atom+xml' title='Atom feed' href='https://pshomov.github.io/atom.xml'>
+                <link rel='alternate' type='application/rss+xml' title='RSS feed' href='https://pshomov.github.io/rss.xml'>
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
+                <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+                <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+                <link rel="stylesheet" href="/styles/vendor.ebca39d7.css">
+
+                <link rel="stylesheet" href="/styles/main.030834ac.css">
+                
+                <script src="https://rawgit.com/natevw/fermata/master/fermata.js"></script>                
+                <script src="/js/vendor.28bec23a.js"></script>
+                
+                </head>
+                
+                <body>
+                    <!--[if lt IE 7]>
+                        <p class="browsehappy">You are using an
+                            <strong>outdated</strong>browser. Please
+                            <a href="http://browsehappy.com/">upgrade
+    your browser</a>to improve your experience.</p>
+                    <![endif]-->
+                    <!--[if lt IE 9]>
+                        <script src="bower_components/es5-shim/es5-shim.js"></script>
+                        <script src="bower_components/json3/lib/json3.min.js"></script>
+                    <![endif]-->
+                    <!-- Add your site or application content here -->
+                    <div id="container">
+                        <div class="aboutme my_name_is">
+                            <div class="picture-of-me block_center"></div>
+                            <h4 class="my_name_is">
+                                <a href="/introduction">My name is Petar</a>
+                            </h4>
+                            <h6>This is where I write about the things I find interesting</h6>
+                            <div class="hcenter">
+                                <span>                                    
+                                    <a href="http://github.com/pshomov"><i class="fa fa-github fa-3x badge"></i></a></a>
+                                    <a href="http://twitter.com/pshomov"><i class="fa fa-twitter fa-3x badge"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="content">
+  <h1 href="top">MVVM with Reducto</h1>
+  <time>2015-10-27</time>
+  <p>Let&#39;s start with a quick recap of the reasons I am writing this post. </p>
+<h3 id="the-problem">The problem</h3>
+<p>I find most examples on the web regarding how to write MVVM apps at fault when it comes to choosing where to place the logic about the flow and behaviour of the app - almost all logic is stuffed into the view models. The <em>Model</em> in MVVM is limited to service/repository wrappers and their DTOs. I think we can do better, I think the model has to be much richer and the view models much smaller.<br>
+Then I found <a href="">Redux</a> and I knew exactly what I needed to do, so I ported it to .NET and its name is <a href="">Reducto</a>. I introduced it in a <a href="">previous post</a> and there is a quick refresher on that in the next section, but for a more detailed overview, please head over <a href="">here</a>. </p>
+<h3 id="agenda-for-this-post">Agenda for this post</h3>
+<p>In this post the rubber meets the road - Reducto orchestrating your Xamarin Forms app. There are some small pieces of glue that I might not talk about here but they are rather simple and live under the <a href="https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure"><code>Infrastructure</code></a> folder in the sample project where all material here is taken from.
+Although the example is with Xamarin Forms, everything should be aplicable to other implementations of MVVM too. </p>
+<h3 id="reducto-redux-recap">Reducto <del>redux</del> recap</h3>
+<p>Reducto is a keeper of the state for your app. It helps to organize the logic that changes that state.</p>
+<p>A quick refresher on the core concepts in Reducto:</p>
+<ul>
+<li><strong>Action</strong> - an object which describes what has happened - LoggedIn, SignedOut, etc. The object contains all the information relevant to the action - username, password, status, etc. Usually there are many actions in an app.</li>
+<li><strong>Reducer</strong> - a side-effect free function that receives the current state of your app and an action. If the reducer does not know how to handle the action it should return the state as is. If the reducer can handle the action it 1.) makes a copy of the state 2.) it modifies it in response to the action and 3.) returns the copy.</li>
+<li><strong>Store</strong> - it is an object that contains your whole app&#39;s state. It also has a reducer. We <em>dispatch</em> an action to the store which hands it to the reducer together with the current app state and then uses the return value of the reducer as the new state of the app. There is only one store in your app. It&#39;s created when your app starts and gets destroyed when your app quits. Your MVVM view models can <em>subscribe</em> to be notified when the state changes so they can update themselves accordingly. </li>
+<li><strong>Async action</strong> - a function that may have side effects. This is where you talk to your database, call a web service, navigate to a view model, etc. Async actions can also dispatch actions (as described above). To execute an async action it needs to be <em>dispatched</em> to the <em>store</em>.</li>
+<li><strong>Middleware</strong> - I will leave this part out for now</li>
+</ul>
+<p>In this post I am going to focus on a very small part of an app - logging in a user. I think it is sufficiently simple and common and will allow me to discribe the technology necessary for building the feature.</p>
+<h3 id="async-actions">Async actions</h3>
+<p>Let&#39;s jump right in and show you the action of logging a user in. It has to be async action since it needs to talk to the &quot;external world&quot;</p>
+<script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=async.action.cs"></script>
+
+<p>Let&#39;s start with a few observation about async actions in general. </p>
+<ul>
+<li>Async actions are best created by helper methods such as <code>asyncActionVoid</code> since they might need to receive their arguments in two stages - at the place of the <em>dispatching</em> of the action and then later on internaly in Reducto. So a little bit of currying is used to achieve that, take a peek   </li>
+</ul>
+<script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=asyncaction.void.cs"></script>
+
+<ul>
+<li><p>As you can see, an async action takes as a first parameter a <em>dispatch</em> delegate which allows the async action to dispatch synchronious ones. This comes useful when it is needed to update the app state. The second parameter is another delegate which allows us to get the app state - <em>getState</em>, useful if we need that info to make some decision about the behaviour. The third parameter is optional and is the only way for the one <em>invoking</em> the async action to pass some information to it(remember that currying part? this&#39;s why). If the action does not need any parameters at the time of the invocation, go ahead and create async action with only two parameters.</p>
+</li>
+<li><p>The result of an async action can be either <code>Task</code> or <code>Task&lt;T&gt;</code> and such async actions are created respectively by  <code>asyncActionVoid</code> and <code>asyncAction</code> methods of the <code>Store</code>.</p>
+</li>
+</ul>
+<p>Coming back to this specific action - it returns <code>Task</code> and expects a parameter of type <code>LoginInfo</code> at the time of its invocation, containing the username and password the user has specified.
+It dispatches actions corresponding to the progress and the outcome of the operation. Also worth noticing is it navigates to another view model upon successful authentication.</p>
+<h3 id="the-app-state">The app state</h3>
+<p>The login async action was dispatching actions before and after the long-running network operation, but how did that affect the view on the screen? Well, first off, those actions are handled by the reducer responsible for that part of the state. </p>
+<p>Before we look at the reducer let&#39;s take a look at the declaration of the app state as well as take this opportunity to see how to creata a composition of reducers for it.</p>
+<script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=app.store.cs"></script>
+
+<p>The idea here is that the complete state of the app is broken down into smaller chunks which are handled by dedicated mini-reducers. Divide and conquer my friends, divide and conquer <i class="em em-wink"></i>.</p>
+<p>The details about <code>DeviceListPageState</code> are intentionally missing since it is not important for this discussion.</p>
+<h3 id="the-reducer">The reducer</h3>
+<p>What follows is an abbreviated version of the <code>App</code> class where all &quot;app logic&quot; lives and the reducer is an important part of it.</p>
+<script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=app.declaration.cs"></script>
+
+<p>A few things here. The reducer for the store is a <code>CompositeReducer</code> and it delegates the responsibility for different parts of the app state to other reducers, in this case - a couple of <code>SimpleReducers</code>, but this sort of brake down can be nested further - <a href="https://github.com/pshomov/reducto/blob/master/src/Reducto.Tests/ReducersTests.cs#L89">here is an example</a>. </p>
+<p>Worth noting also is the constructor of <code>SimpleReducer</code> where we can create the initial value for the state this reducer governs.</p>
+<h3 id="view-model">View model</h3>
+<p>Let&#39;s take a look at the view model for the LoginPageView</p>
+<script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=viewmodel.cs"></script>
+
+<p>As you can see the view model is quite simple. Dispatches the Login async action with the username and password the user has provided and listens for updates to the store and updates its properties accordingly.
+<code>Store.createAsyncActionCommand</code> is an extension method that creates an <code>ICommand</code> that dispatches an action and is something that is not part of Reducto, but might put in an Reducto.XamarinForms nuget package. For now, you can go see <a href="https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure/CommandToAction.cs">the source code</a></p>
+<h3 id="conclusion">Conclusion</h3>
+<p>This is it. Needless to say this structuring of the app makes a lot more sense to me. Testing the logic is very clean. Reducers are very easy to test since they are so simple and all you need to do is give them state and an action and compare the result to what you expected it to be. Async actions which are the other half of the logic in the app need a bit more setup - mocking and stubbing but all in all pretty good experience too.</p>
+<p>I know these are still early days for Reducto and may be there are some issues to be addressed but if you like where this is going, please open an issue and let&#39;s make it better. </p>
+
+  
+  <div class="comments-title" href="comments">Comments (<a href="/comments-powered-by-github/">powered by GitHub issues</a>):</div>    
+  <div id="comments" class="comments">
+    <div class="hcenter spinner">
+    </div>
+  </div>
+  <div class="hcenter comments__post"><a class="button" href="https://github.com/pshomov/pshomov.github.io/issues/6">Post your comment&nbsp;<i class="fa fa-github"></i></a></div>
+  <script>
+    function formatCommentTimestamp(timestamp) {
+      return timestamp.toLocaleString();
+    }
+    function loadComments(data) {
+      var comments = "";
+      for (var i=0; i<data.length; i++) {
+        var cuser = data[i].user.login;
+        var cuserlink = "https://www.github.com/" + data[i].user.login;
+        var clink = "https://github.com/pshomov/pshomov.github.io/issues/6#issuecomment-" + data[i].url.substring(data[i].url.lastIndexOf("/")+1);
+       var cbody = data[i].body;
+       var cavatarlink = data[i].user.avatar_url;
+       var cdate = formatCommentTimestamp(new Date(data[i].created_at));
+    
+       comments += "<div class='comment'>"+'<img src="' + cavatarlink + '" class="avatar">'+"<div class='comment__info'>"+"<div class='comment__header'><a class='comment__user' href=\""+ cuserlink + "\">" + cuser + "</a>" + "<a class='comment__date' href=\"" + clink + "\">" + cdate + "</a></div><div class='comment__body'>" + marked(cbody) + "</div></div></div>";
+     }
+     if (comments == ""){
+       comments = '<div class="hcenter">No comments have been posted yet, wanna go first? <i class="fa fa-hand-o-down"></i></div>';
+     }
+     document.getElementById("comments").innerHTML = comments;
+    }
+    var site = fermata.json('https://api.github.com');
+    
+    site('repos','pshomov', 'pshomov.github.io','issues','6', 'comments').get(function (err, data, headers){
+      if (err == null){
+       loadComments(data); 
+      }
+    });
+  </script>  
+  
+</div>
+                        <!-- <div class="links">links</div> --></div>
+                    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+                    <script>
+                        (function(i, s, o, g, r, a, m) {
+                            i['GoogleAnalyticsObject'] = r;
+                            i[r] = i[r] || function() {
+                                (i[r].q = i[r].q || []).push(arguments)
+                            }, i[r].l = 1 * new Date();
+                            a = s.createElement(o),
+                            m = s.getElementsByTagName(o)[0];
+                            a.async = 1;
+                            a.src = g;
+                            m.parentNode.insertBefore(a, m)
+                        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+                    
+                        ga('create', 'UA-50877599-1', 'pshomov.github.io');
+                        ga('send', 'pageview');
+                    </script>
+                </body>
+                
+                </html>
