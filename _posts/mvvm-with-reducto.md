@@ -54,7 +54,7 @@ It dispatches actions corresponding to the progress and the outcome of the opera
 
 ### The app state
 
-The login async action was dispatching actions before and after the long-running network operation, but how did that affect the view on the screen? - the actions are handled by the mini-reducer responsible for that part of the state and the state is updated accordingly. 
+The login async action is dispatching actions before and after the long-running network operation, but how does that affect the view on the screen? - the actions are handled by the mini-reducer responsible for that part of the state and the state is updated accordingly. 
 
 Before we look at the reducer let's take a look at the declaration of the app state.
 
