@@ -10,7 +10,7 @@ Let's start with a quick recap of the reasons I am writing this post.
 ### The problem
 
 I find most examples on the web regarding how to write MVVM apps at fault when it comes to choosing where to place the logic about the flow and behaviour of the app - almost all logic is stuffed into the view models. The _Model_ in MVVM is limited to service/repository wrappers and their DTOs. I think we can do better, I think the model has to be much richer and the view models much smaller.<br>
-Then I found [Redux](http://redux.js.org) and I knew exactly what I needed to do, so I ported it to .NET and its name is [Reducto](). I introduced it in a [previous post](/compartmentalizing-logic/) and there is a quick refresher on that in a following section, but for a more detailed overview, please head over [here](/compartmentalizing-logic/). 
+Then I found [Redux](http://redux.js.org) and I knew exactly what I needed to do, so I ported it to .NET and its name is [Reducto](https://github.com/pshomov/reducto). I introduced it in a [previous post](/compartmentalizing-logic/) and there is a quick refresher on that in a following section, but for a more detailed overview, please head over [here](/compartmentalizing-logic/). 
 
 ### Agenda for this post
 
@@ -41,8 +41,9 @@ Let's jump right in and show you the action of logging a user in. It has to be a
 
 Let's start with a few observation about async actions in general. 
 
- - Use the store's `asyncAction` and `asyncActionVoid` methods to create async action. In more detail: Async actions are best created by helper methods such as `asyncActionVoid` since they might need to receive their arguments in two stages - at the place of the _dispatching_ of the action and then later on internally in Reducto. So a little bit of currying is used to achieve that, take a look.  
+ - Use the `store`'s `asyncAction` or `asyncActionVoid` methods to create async action. <div style="display:none"> In more detail: Async actions are best created by helper methods such as `asyncActionVoid` since they might need to receive their arguments in two stages - at the place of the _dispatching_ of the action and then later on internally in Reducto. So a little bit of currying is used to achieve that, take a look.  
  <script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=asyncaction.void.cs"></script>
+ </div>
 
  - As you can see, an async action takes as a first parameter a _dispatch_ delegate which allows the async action to dispatch synchronous ones. This comes useful when it is needed to update the app state. The second parameter is another delegate which allows us to get the app state - _getState_, useful if we need that info to make some decision about the behaviour. The third parameter is optional and is the only way for the one _invoking_ the async action to pass some information to it(remember that currying part? this's why). If the action does not need any parameters at the time of the invocation, go ahead and create async action with only two parameters.
  
