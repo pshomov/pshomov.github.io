@@ -60,12 +60,12 @@
                             </div>
                         </div>
                         <div class="content">
-  <h1 href="top">MVVM with Reducto</h1>
-  <time>2015-11-22</time>
+  <h1 href="top">Better MVVM with Xamarin Forms</h1>
+  <time>2015-11-25</time>
   <p>Let&#39;s start with a quick recap of the reasons I am writing this post. </p>
 <h3 id="the-problem">The problem</h3>
 <p>I find most examples on the web regarding how to write MVVM apps at fault when it comes to choosing where to place the logic about the flow and behaviour of the app - almost all logic is stuffed into the view models. The <em>Model</em> in MVVM is limited to service/repository wrappers and their DTOs. I think we can do better, I think the model has to be much richer and the view models much smaller.<br>
-Then I found <a href="">Redux</a> and I knew exactly what I needed to do, so I ported it to .NET and its name is <a href="">Reducto</a>. I introduced it in a <a href="">previous post</a> and there is a quick refresher on that in a following section, but for a more detailed overview, please head over <a href="">here</a>. </p>
+Then I found <a href="http://redux.js.org">Redux</a> and I knew exactly what I needed to do, so I ported it to .NET and its name is <a href="https://github.com/pshomov/reducto">Reducto</a>. I introduced it in a <a href="/compartmentalizing-logic/">previous post</a> and there is a quick refresher on that in a following section, but for a more detailed overview, please head over <a href="/compartmentalizing-logic/">here</a>. </p>
 <h3 id="agenda-for-this-post">Agenda for this post</h3>
 <p>In this post the rubber meets the road - Reducto orchestrating your Xamarin Forms app. I am going to focus on a very small part of an app - logging in a user. I think it is sufficiently simple and common and will allow me to focus on the technology necessary for building the feature.</p>
 <p>There are some small pieces of glue that I might not talk about here but they are rather simple and live under the <a href="https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure"><code>Infrastructure</code></a> folder in the <a href="https://github.com/pshomov/reducto.sample">sample project</a> where all material here is taken from.
@@ -88,8 +88,8 @@ Dispatching an <em>async action</em> cannot change the state but it can dispatch
 
 <p>Let&#39;s start with a few observation about async actions in general. </p>
 <ul>
-<li><p>Use the store&#39;s <code>asyncAction</code> and <code>asyncActionVoid</code> methods to create async action. In more detail: Async actions are best created by helper methods such as <code>asyncActionVoid</code> since they might need to receive their arguments in two stages - at the place of the <em>dispatching</em> of the action and then later on internally in Reducto. So a little bit of currying is used to achieve that, take a look.  </p>
-<script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=asyncaction.void.cs"></script>
+<li><p>Use the <code>store</code>&#39;s <code>asyncAction</code> or <code>asyncActionVoid</code> methods to create async action. <div style="display:none"> In more detail: Async actions are best created by helper methods such as <code>asyncActionVoid</code> since they might need to receive their arguments in two stages - at the place of the <em>dispatching</em> of the action and then later on internally in Reducto. So a little bit of currying is used to achieve that, take a look.<br><script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=asyncaction.void.cs"></script>
+</div></p>
 </li>
 <li><p>As you can see, an async action takes as a first parameter a <em>dispatch</em> delegate which allows the async action to dispatch synchronous ones. This comes useful when it is needed to update the app state. The second parameter is another delegate which allows us to get the app state - <em>getState</em>, useful if we need that info to make some decision about the behaviour. The third parameter is optional and is the only way for the one <em>invoking</em> the async action to pass some information to it(remember that currying part? this&#39;s why). If the action does not need any parameters at the time of the invocation, go ahead and create async action with only two parameters.</p>
 </li>
@@ -99,7 +99,7 @@ Dispatching an <em>async action</em> cannot change the state but it can dispatch
 <p>Coming back to this specific action - it returns <code>Task</code> and expects a parameter of type <code>LoginInfo</code> at the time of its invocation, containing the username and password the user has specified.
 It dispatches actions corresponding to the progress and the outcome of the operation. Also worth noticing is it navigates to another view model upon successful authentication.</p>
 <h3 id="the-app-state">The app state</h3>
-<p>The login async action was dispatching actions before and after the long-running network operation, but how did that affect the view on the screen? - the actions are handled by the mini-reducer responsible for that part of the state and the state is updated accordingly. </p>
+<p>The login async action is dispatching actions before and after the long-running network operation, but how does that affect the view on the screen? - the actions are handled by the mini-reducer responsible for that part of the state and the state is updated accordingly. </p>
 <p>Before we look at the reducer let&#39;s take a look at the declaration of the app state.</p>
 <script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=app.store.cs"></script>
 
@@ -110,12 +110,13 @@ It dispatches actions corresponding to the progress and the outcome of the opera
 <script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=app.declaration.cs"></script>
 
 <p>A few things here. The reducer for the store is a <code>CompositeReducer</code> and it delegates the responsibility for different parts of the app state to other reducers, in this case - a couple of <code>SimpleReducers</code>, but this sort of brake down can be nested further - <a href="https://github.com/pshomov/reducto/blob/master/src/Reducto.Tests/ReducersTests.cs#L89">here is an example</a>. </p>
-<p>Worth noting also is the constructor of <code>SimpleReducer</code> where we can create the initial value for the state this reducer governs.</p>
+<p>Worth noting also is the constructor of <code>SimpleReducer</code> where we can create the initial value for the state this reducer governs. If not provided - the state gets initilized with default values.</p>
 <h3 id="view-model">View model</h3>
 <p>Let&#39;s take a look at the view model for the LoginPageView</p>
 <script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=viewmodel.cs"></script>
 
-<p>As you can see the view model is quite simple. Dispatches the Login async action with the username and password the user has provided and listens for updates to the store and updates its properties accordingly.
+<p>I have a very simple base class for my view models - <a href="https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure/ViewModel.cs"><code>ViewModel</code></a>, which helps me find its view based on a very simple convention. Comes handy when I have to do navigation. I am also using the great <a href="https://github.com/Fody/PropertyChanged">Fody.PropertyChanged</a> which saves me the annoyance of dealing with <code>INotifyPropertyChanged</code>.</p>
+<p>As you can see the view model itself is quite simple. Dispatches the Login async action with the username and password the user has provided and listens for updates to the store and updates its properties accordingly.
 <code>Store.createAsyncActionCommand</code> is an extension method that creates an <code>ICommand</code> that dispatches an action and is something that is not part of Reducto, but might put in an Reducto.XamarinForms nuget package. For now, you can go see <a href="https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure/CommandToAction.cs">the source code</a></p>
 <h3 id="conclusion">Conclusion</h3>
 <p>Needless to say this structuring of an app makes a lot more sense to me:</p>
