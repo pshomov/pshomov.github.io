@@ -10,7 +10,7 @@ Let's start with a quick recap of the reasons I am writing this post.
 ### The problem
 
 I find most examples on the web regarding how to write MVVM apps at fault when it comes to choosing where to place the logic about the flow and behaviour of the app - almost all logic is stuffed into the view models. The _Model_ in MVVM is limited to service/repository wrappers and their DTOs. I think we can do better, I think the model has to be much richer and the view models much smaller.<br>
-Then I found [Redux]() and I knew exactly what I needed to do, so I ported it to .NET and its name is [Reducto](). I introduced it in a [previous post]() and there is a quick refresher on that in a following section, but for a more detailed overview, please head over [here](). 
+Then I found [Redux](http://redux.js.org) and I knew exactly what I needed to do, so I ported it to .NET and its name is [Reducto](). I introduced it in a [previous post](/compartmentalizing-logic/) and there is a quick refresher on that in a following section, but for a more detailed overview, please head over [here](/compartmentalizing-logic/). 
 
 ### Agenda for this post
 
