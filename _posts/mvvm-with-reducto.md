@@ -1,6 +1,7 @@
 ---
-title: MVVM with Reducto
-date: 2015-11-22
+title: Better MVVM with Xamarin Forms
+date: 2015-11-25
+collection: published
 template: post.html
 issueId: 6
 ---
@@ -72,7 +73,7 @@ What follows is an abbreviated version of the `App` class where all "app logic" 
 
 A few things here. The reducer for the store is a `CompositeReducer` and it delegates the responsibility for different parts of the app state to other reducers, in this case - a couple of `SimpleReducers`, but this sort of brake down can be nested further - [here is an example](https://github.com/pshomov/reducto/blob/master/src/Reducto.Tests/ReducersTests.cs#L89). 
 
-Worth noting also is the constructor of `SimpleReducer` where we can create the initial value for the state this reducer governs.
+Worth noting also is the constructor of `SimpleReducer` where we can create the initial value for the state this reducer governs. If not provided - the state gets initilized with default values.
 
 ### View model
 
@@ -80,7 +81,9 @@ Let's take a look at the view model for the LoginPageView
 
 <script src="https://gist.github.com/pshomov/c534fb9eb3052dcc3f67.js?file=viewmodel.cs"></script>
 
-As you can see the view model is quite simple. Dispatches the Login async action with the username and password the user has provided and listens for updates to the store and updates its properties accordingly.
+I have a very simple base class for my view models - [`ViewModel`](https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure/ViewModel.cs), which helps me find its view based on a very simple convention. Comes handy when I have to do navigation. I am also using the great [Fody.PropertyChanged](https://github.com/Fody/PropertyChanged) which saves me the annoyance of dealing with `INotifyPropertyChanged`.
+
+As you can see the view model itself is quite simple. Dispatches the Login async action with the username and password the user has provided and listens for updates to the store and updates its properties accordingly.
 `Store.createAsyncActionCommand` is an extension method that creates an `ICommand` that dispatches an action and is something that is not part of Reducto, but might put in an Reducto.XamarinForms nuget package. For now, you can go see [the source code](https://github.com/pshomov/reducto.sample/blob/master/src/Reducto.Sample/Infrastructure/CommandToAction.cs)
 
 ### Conclusion
