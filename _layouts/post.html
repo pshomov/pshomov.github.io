@@ -23,7 +23,7 @@
        var cbody = data[i].body;
        var cavatarlink = data[i].user.avatar_url;
        var cdate = formatCommentTimestamp(new Date(data[i].created_at));
-    
+       cbody = cbody.replace(/:wink:/gmi, '<i class="em em-wink"></i>');
        comments += "<div class='comment'>"+'<img src="' + cavatarlink + '" class="avatar">'+"<div class='comment__info'>"+"<div class='comment__header'><a class='comment__user' href=\""+ cuserlink + "\">" + cuser + "</a>" + "<a class='comment__date' href=\"" + clink + "\">" + cdate + "</a></div><div class='comment__body'>" + marked(cbody) + "</div></div></div>";
      }
      if (comments == ""){
